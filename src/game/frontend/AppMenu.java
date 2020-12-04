@@ -37,7 +37,7 @@ public class AppMenu extends MenuBar {
         help.getItems().add(aboutMenuItem);
 
         Menu levels = new Menu("Niveles");
-        MenuItem level1 = new MenuItem("Estandar");
+        MenuItem level1 = new MenuItem("Estándar");
         MenuItem level2 = new MenuItem("Golden Board");
         MenuItem level3 = new MenuItem("Wall Blast");
         MenuItem level4 = new MenuItem("Time Bomb");

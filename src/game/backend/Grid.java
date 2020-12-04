@@ -54,20 +54,15 @@ public abstract class Grid {
 	}
 
 	public void fallElements() {
-		int i = SIZE - 1;
-		while (i >= 0) {
-			int j = 0;
-			while (j < SIZE) {
-				if (g[i][j].isEmpty()) {
-					if (g[i][j].fallUpperContent()) {
-						i = SIZE;
-						j = -1;
+		for (int x=SIZE-1;x>=0;x--){
+			for (int y=0;y<SIZE;y++){
+				if (g[x][y].isEmpty()) {
+					if (g[x][y].fallUpperContent()) {
+						x = SIZE;
 						break;
 					}
 				}
-				j++;
 			}
-			i--;
 		}
 	}
 	
