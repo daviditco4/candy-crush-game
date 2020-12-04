@@ -23,6 +23,7 @@ public class AppMenu extends MenuBar {
             }
         });
         file.getItems().add(exitMenuItem);
+
         Menu help = new Menu("Ayuda");
         MenuItem aboutMenuItem = new MenuItem("Acerca De");
         aboutMenuItem.setOnAction(event -> {
@@ -34,7 +35,17 @@ public class AppMenu extends MenuBar {
             alert.showAndWait();
         });
         help.getItems().add(aboutMenuItem);
-        getMenus().addAll(file, help);
+
+        Menu levels = new Menu("Niveles");
+        MenuItem level1 = new MenuItem("Estandar");
+        MenuItem level2 = new MenuItem("Golden Board");
+        MenuItem level3 = new MenuItem("Wall Blast");
+        MenuItem level4 = new MenuItem("Time Bomb");
+        levels.getItems().add(level1);
+        levels.getItems().add(level2);
+        levels.getItems().add(level3);
+        levels.getItems().add(level4);
+        getMenus().addAll(file, help, levels);
     }
 
 }

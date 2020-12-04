@@ -8,10 +8,7 @@ import game.backend.move.Move;
 import game.backend.move.MoveMaker;
 
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class Grid {
 	
@@ -66,10 +63,10 @@ public abstract class Grid {
 						i = SIZE;
 						j = -1;
 						break;
-					} 
+					}
 				}
 				j++;
-			}	
+			}
 			i--;
 		}
 	}
