@@ -2,20 +2,21 @@ package game.backend;
 
 import game.backend.cell.Cell;
 import game.backend.element.Element;
+import game.backend.level.Level1;
 
 public class CandyGame implements GameListener {
 	
-	private Class<?> levelClass;
+	private Level1 level;
 	private Grid grid;
 	private GameState state;
 	
-	public CandyGame(Class<?> clazz) {
-		this.levelClass = clazz;
+	public CandyGame(Level1 level) {
+		this.level = level;
 	}
 	
 	public void initGame() {
 		try {
-			grid = (Grid)levelClass.newInstance();
+			grid = level.getClass().newInstance();
 		} catch(IllegalAccessException | InstantiationException e) {
 			System.out.println("ERROR AL INICIAR");
 		}
@@ -46,6 +47,11 @@ public class CandyGame implements GameListener {
 	
 	public boolean isFinished() {
 		return state.gameOver();
+	}
+
+	//Retorno la cantidad de pasos que quedan segun el nivel
+	public int stepsLeft(){
+		return level.getMaxMoves() - state.getMoves();
 	}
 	
 	public boolean playerWon() {

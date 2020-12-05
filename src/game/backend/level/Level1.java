@@ -64,6 +64,10 @@ public class Level1 extends Grid {
 		}
 		return ret;
 	}
+
+	public int getMaxMoves(){
+		return MAX_MOVES;
+	}
 	
 	private class Level1State extends GameState {
 		private long requiredScore;
@@ -73,11 +77,11 @@ public class Level1 extends Grid {
 			this.requiredScore = requiredScore;
 			this.maxMoves = maxMoves;
 		}
-		
+		@Override
 		public boolean gameOver() {
 			return playerWon() || getMoves() >= maxMoves;
 		}
-		
+		@Override
 		public boolean playerWon() {
 			return getScore() > requiredScore;
 		}
