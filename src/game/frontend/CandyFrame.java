@@ -62,24 +62,27 @@ public class CandyFrame extends VBox {
 		listener.gridUpdated();
 
 		addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			if (lastPoint == null) {
-				lastPoint = translateCoords(event.getX(), event.getY());
-				System.out.println("Get first = " +  lastPoint);
-			} else {
-				Point2D newPoint = translateCoords(event.getX(), event.getY());
-				if (newPoint != null) {
-					System.out.println("Get second = " +  newPoint);
-					game().tryMove((int)lastPoint.getX(), (int)lastPoint.getY(), (int)newPoint.getX(), (int)newPoint.getY());
-					String message = ((Long)game().getScore()).toString();
-					if (game().isFinished()) {
-						if (game().playerWon()) {
-							message = message + " Finished - Player Won!";
-						} else {
-							message = message + " Finished - Loser !";
+			// If game is finished clicking on cells does nothing
+			if(!game().isFinished()) {
+				if (lastPoint == null) {
+					lastPoint = translateCoords(event.getX(), event.getY());
+					System.out.println("Get first = " + lastPoint);
+				} else {
+					Point2D newPoint = translateCoords(event.getX(), event.getY());
+					if (newPoint != null) {
+						System.out.println("Get second = " + newPoint);
+						game().tryMove((int) lastPoint.getX(), (int) lastPoint.getY(), (int) newPoint.getX(), (int) newPoint.getY());
+						String message = ((Long) game().getScore()).toString();
+						if (game().isFinished()) {
+							if (game().playerWon()) {
+								message = message + " Finished - Player Won!";
+							} else {
+								message = message + " Finished - Loser !";
+							}
 						}
+						scorePanel.updateScore(message);
+						lastPoint = null;
 					}
-					scorePanel.updateScore(message);
-					lastPoint = null;
 				}
 			}
 		});
