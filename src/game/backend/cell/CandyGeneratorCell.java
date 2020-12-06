@@ -1,5 +1,6 @@
 package game.backend.cell;
 
+import game.backend.CandyGame;
 import game.backend.Grid;
 import game.backend.element.Candy;
 import game.backend.element.CandyColor;
@@ -24,7 +25,7 @@ public class CandyGeneratorCell extends Cell {
 	@Override
 	public Element getContent() {
 		int i = (int)(Math.random() * CandyColor.values().length);
-		return new Candy(CandyColor.values()[i]);
+		return CandyGame.instance.level().generateCandy(CandyColor.values()[i]);
 	}
 	
 	@Override

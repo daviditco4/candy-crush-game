@@ -25,7 +25,11 @@ public class CandyGame implements GameListener {
 		grid.initialize();
 		addGameListener(this);
 	}
-	
+
+	public Level0 level() {
+		return level;
+	}
+
 	public int getSize() {
 		return Grid.SIZE;
 	}

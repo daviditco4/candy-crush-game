@@ -1,6 +1,5 @@
 package game.frontend;
 
-import game.backend.level.Level0;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 
