@@ -2,7 +2,7 @@ package game.backend.move;
 
 import game.backend.Figure;
 import game.backend.FigureDetector;
-import game.backend.Grid;
+import game.backend.level.LevelBase;
 
 public class CandyMove extends Move {
 
@@ -10,16 +10,16 @@ public class CandyMove extends Move {
 	private Figure f2;
 	
 	private FigureDetector detector;
-	private Grid grid;
+	private LevelBase levelBase;
 	
-	public CandyMove(Grid grid) {
-		super(grid);
-		this.grid = grid;
+	public CandyMove(LevelBase levelBase) {
+		super(levelBase);
+		this.levelBase = levelBase;
 	}
 	
 	@Override
 	public boolean internalValidation() {
-		this.detector = new FigureDetector(grid);
+		this.detector = new FigureDetector(levelBase);
 		f1 = detector.checkFigure(y1, x1);
 		f2 = detector.checkFigure(y2, x2);
 		return f1 != null || f2 != null;

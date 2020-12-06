@@ -3,12 +3,12 @@ package game.backend;
 import game.backend.cell.Cell;
 import game.backend.element.Element;
 import game.backend.level.Level0;
-import game.backend.level.Level1;
+import game.backend.level.LevelBase;
 
 public class CandyGame implements GameListener{
 	
 	private static Level0 level;
-	private Grid grid;
+	private LevelBase levelBase;
 	private GameState state;
 	
 	public CandyGame(Level0 level) {
@@ -17,12 +17,12 @@ public class CandyGame implements GameListener{
 	
 	public void initGame() {
 		try {
-			grid = level.getClass().newInstance();
+			levelBase = level.getClass().newInstance();
 		} catch(IllegalAccessException | InstantiationException e) {
 			System.out.println("ERROR AL INICIAR");
 		}
-		state = grid.createState();
-		grid.initialize();
+		state = levelBase.createState();
+		levelBase.initialize();
 		addGameListener(this);
 	}
 
@@ -31,19 +31,19 @@ public class CandyGame implements GameListener{
 	}
 
 	public int getSize() {
-		return Grid.SIZE;
+		return LevelBase.SIZE;
 	}
 	
 	public boolean tryMove(int y1, int x1, int y2, int x2){
-		return grid.tryMove(y1, x1, y2, x2);
+		return levelBase.tryMove(y1, x1, y2, x2);
 	}
 	
 	public Cell get(int y, int x){
-		return grid.getCell(y, x);
+		return levelBase.getCell(y, x);
 	}
 	
 	public void addGameListener(GameListener listener) {
-		grid.addListener(listener);
+		levelBase.addListener(listener);
 	}
 	
 	public long getScore() {

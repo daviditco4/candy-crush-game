@@ -1,6 +1,6 @@
 package game.backend.cell;
 
-import game.backend.Grid;
+import game.backend.level.LevelBase;
 import game.backend.element.Element;
 import game.backend.element.Nothing;
 import game.backend.move.Direction;
@@ -8,14 +8,14 @@ import javafx.scene.paint.Color;
 
 public class Cell {
 	
-	private Grid grid;
+	private LevelBase levelBase;
 	private Cell[] around = new Cell[Direction.values().length];
 	private Element content;
 	// Cell color
 	private Color color;
 	
-	public Cell(Grid grid) {
-		this.grid = grid;
+	public Cell(LevelBase levelBase) {
+		this.levelBase = levelBase;
 		this.content = new Nothing();
 	}
 
@@ -53,7 +53,7 @@ public class Cell {
 	public void clearContent() {
 		if (content.isMovable()) {
 			Direction[] explosionCascade = content.explode();
-			grid.cellExplosion(content);
+			levelBase.cellExplosion(content);
 			this.content = new Nothing();
 			if (explosionCascade != null) {
 				expandExplosion(explosionCascade); 
@@ -94,7 +94,7 @@ public class Cell {
 			*  grid.wasUpdated();
 			*/
 			if (this.hasFloor()) {
-				grid.tryRemove(this);
+				levelBase.tryRemove(this);
 				return true;
 			} else {
 				Cell down = around[Direction.DOWN.ordinal()];

@@ -1,7 +1,6 @@
 package game.backend.level;
 
 import game.backend.GameState;
-import game.backend.Grid;
 import game.backend.cell.CandyGeneratorCell;
 import game.backend.cell.Cell;
 import game.backend.element.Candy;
@@ -9,7 +8,7 @@ import game.backend.element.CandyColor;
 import game.backend.element.Element;
 import game.backend.element.Wall;
 
-public class Level0 extends Grid {
+public class Level0 extends LevelBase {
 	
 	private static final int REQUIRED_SCORE = 5000;
 	private static final int MAX_MOVES = 20;

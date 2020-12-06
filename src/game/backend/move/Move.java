@@ -1,15 +1,15 @@
 package game.backend.move;
 
-import game.backend.Grid;
+import game.backend.level.LevelBase;
 import game.backend.element.Element;
 
 public abstract class Move {
 	
-	private Grid grid;
+	private LevelBase levelBase;
 	protected int y1, x1, y2, x2;
 	
-	public Move(Grid grid) {
-		this.grid = grid;
+	public Move(LevelBase levelBase) {
+		this.levelBase = levelBase;
 	}
 	
 	public void setCoords(int y1, int x1, int y2, int x2){
@@ -31,19 +31,19 @@ public abstract class Move {
 	}
 	
 	protected Element get(int y, int x) {
-		return grid.get(y, x);
+		return levelBase.get(y, x);
 	}
 	
 	protected void clearContent(int y, int x) {
-		grid.clearContent(y, x);
+		levelBase.clearContent(y, x);
 	}
 	
 	protected void setContent(int y, int x, Element e){
-		grid.setContent(y, x, e);
+		levelBase.setContent(y, x, e);
 	}
 	
 	protected void wasUpdated(){
-		grid.wasUpdated();
+		levelBase.wasUpdated();
 	}
 	
 	public abstract void removeElements();

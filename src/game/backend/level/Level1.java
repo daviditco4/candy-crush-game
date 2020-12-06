@@ -1,6 +1,5 @@
 package game.backend.level;
 
-import game.backend.Grid;
 import javafx.scene.paint.Color;
 
 public class Level1 extends Level0 {
@@ -33,7 +32,7 @@ public class Level1 extends Level0 {
 
 
     public String CellsUnColored(){
-        return String.format("cells remaining: %d", Grid.SIZE * Grid.SIZE - acum);
+        return String.format("cells remaining: %d", LevelBase.SIZE * LevelBase.SIZE - acum);
     }
 
 

@@ -1,5 +1,9 @@
-package game.backend;
+package game.backend.level;
 
+import game.backend.Figure;
+import game.backend.FigureDetector;
+import game.backend.GameListener;
+import game.backend.GameState;
 import game.backend.cell.Cell;
 import game.backend.element.Candy;
 import game.backend.element.CandyColor;
@@ -10,7 +14,7 @@ import game.backend.move.MoveMaker;
 import java.awt.Point;
 import java.util.*;
 
-public abstract class Grid {
+public abstract class LevelBase {
 	
 	public static final int SIZE = 9;
 

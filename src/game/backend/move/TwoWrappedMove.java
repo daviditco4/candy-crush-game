@@ -1,11 +1,11 @@
 package game.backend.move;
 
-import game.backend.Grid;
+import game.backend.level.LevelBase;
 
 public class TwoWrappedMove extends Move {
 	
-	public TwoWrappedMove(Grid grid) {
-		super(grid);
+	public TwoWrappedMove(LevelBase levelBase) {
+		super(levelBase);
 	}
 	
 	@Override

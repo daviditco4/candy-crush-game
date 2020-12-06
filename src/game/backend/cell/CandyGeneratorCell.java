@@ -1,15 +1,14 @@
 package game.backend.cell;
 
 import game.backend.CandyGame;
-import game.backend.Grid;
-import game.backend.element.Candy;
+import game.backend.level.LevelBase;
 import game.backend.element.CandyColor;
 import game.backend.element.Element;
 
 public class CandyGeneratorCell extends Cell {
 	
-	public CandyGeneratorCell(Grid grid) {
-		super(grid);
+	public CandyGeneratorCell(LevelBase levelBase) {
+		super(levelBase);
 	}
 	
 	@Override
