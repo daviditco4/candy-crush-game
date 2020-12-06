@@ -8,6 +8,7 @@ import game.backend.element.Element;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -18,6 +19,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class CandyFrame extends VBox {
 
@@ -57,6 +61,19 @@ public class CandyFrame extends VBox {
 			}
 		});
 
+		Timer timer = new Timer();
+		timer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				Platform.runLater(new TimerTask() {
+					@Override
+					public void run() {
+						game.level().updateFixedTime();
+						updateScorePanel();
+					}
+				});
+			}
+		}, 0, 1000);
 	}
 
 	public void updateScorePanel(){

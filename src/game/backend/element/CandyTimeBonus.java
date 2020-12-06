@@ -1,5 +1,7 @@
 package game.backend.element;
 
+import game.backend.CandyGame;
+
 public class CandyTimeBonus extends Candy {
 
     private int timeBonus;
@@ -16,6 +18,11 @@ public class CandyTimeBonus extends Candy {
     public CandyTimeBonus(CandyColor color, int timeBonus) {
         this.timeBonus = timeBonus;
         setColor(color);
+    }
+
+    @Override
+    public void onDestroyed() {
+        CandyGame.instance.level().state().increaseTimer(timeBonus);
     }
 
     public int getTimeBonus() {

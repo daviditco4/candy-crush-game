@@ -1,14 +1,13 @@
 package game.backend;
 
-import game.backend.level.Level0;
-
 public abstract class GameState {
 	
 	private long score = 0;
 	private int moves = 0;
+	private int timer = 0;
 	
 	public void addScore(long value) {
-		this.score = this.score + value;
+		this.score += value;
 	}
 	
 	public long getScore(){
@@ -22,12 +21,16 @@ public abstract class GameState {
 	public int getMoves() {
 		return moves;
 	}
-	
+
+	public void updateTimer() { if (timer>0) timer--;}
+
+	public int getTimer() {return timer;}
+
+	public void setTimer(int time) {timer = time;}
+
+	public void increaseTimer (int time) {timer += time;}
+
 	public abstract boolean gameOver();
 	
 	public abstract boolean playerWon();
-
-	public void changeLevel(Class<? extends Level0> levelClass) {
-
-	}
 }

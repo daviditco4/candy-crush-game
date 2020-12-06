@@ -6,15 +6,31 @@ import game.backend.element.*;
 public class Level4 extends LevelBase {
 
     private static final float timeBonusCandyChance = 0.05f;
+    private static final int startingTime = 60;
 
     @Override
     public String getDisplayString() {
-        return "TODO: LEVEL 4 SCORES";
+        return "Time left: "+ state().getTimer();
     }
 
     @Override
     protected GameState newState() {
-        return new Level4State();
+        return new Level4State(startingTime);
+    }
+
+    @Override
+    public boolean tryMove(int y1, int x1, int y2, int x2) {
+        boolean ret;
+        if (ret = super.tryMove(y1, x1, y2, x2)) {
+            state().addMove();
+            wasUpdated();
+        }
+        return ret;
+    }
+
+    @Override
+    public void updateFixedTime() {
+        state().updateTimer();
     }
 
     @Override
@@ -31,11 +47,12 @@ public class Level4 extends LevelBase {
 
     private static class Level4State extends GameState {
 
-        public Level4State() {
+        public Level4State(int startingTime) {
+            setTimer(startingTime);
         }
         @Override
         public boolean gameOver() {
-            return false;
+            return getTimer() <= 0;
         }
         @Override
         public boolean playerWon() {

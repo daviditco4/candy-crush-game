@@ -19,7 +19,9 @@ public abstract class Element {
 	public Direction[] explode() {
 		return null;
 	}
-	
+
+	public void onDestroyed() {}
+
 	public long getScore() {
 		return 0;
 	}

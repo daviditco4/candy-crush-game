@@ -29,6 +29,7 @@ public abstract class LevelBase {
 
 	public abstract String getDisplayString();
 	protected abstract GameState newState();
+	public void updateFixedTime(){}
 	protected void fillCells() {
 		Cell wallCell = new Cell(this);
 		wallCell.setContent(new Wall());
