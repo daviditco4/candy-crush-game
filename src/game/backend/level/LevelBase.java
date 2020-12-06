@@ -180,6 +180,10 @@ public abstract class LevelBase {
 		}
 	}
 
+	public MoveMaker getMoveMaker(){
+		return moveMaker;
+	}
+
 	public Element generateCandy(CandyColor color){
 		return new Candy(color);
 	}
