@@ -7,7 +7,7 @@ import game.backend.level.Level1;
 
 public class CandyGame implements GameListener{
 	
-	private Level0 level;
+	private static Level0 level;
 	private Grid grid;
 	private GameState state;
 	
@@ -26,7 +26,7 @@ public class CandyGame implements GameListener{
 		addGameListener(this);
 	}
 
-	public Level0 level(){
+	public static Level0 level(){
 		return level;
 	}
 
