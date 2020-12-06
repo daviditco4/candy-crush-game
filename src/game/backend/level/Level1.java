@@ -21,7 +21,6 @@ public class Level1 extends Grid {
 
 	@Override
 	protected void fillCells() {
-		
 		wallCell = new Cell(this);
 		wallCell.setContent(new Wall());
 		candyGenCell = new CandyGeneratorCell(this);
@@ -61,6 +60,7 @@ public class Level1 extends Grid {
 		boolean ret;
 		if (ret = super.tryMove(i1, j1, i2, j2)) {
 			state().addMove();
+			wasUpdated();
 		}
 		return ret;
 	}
