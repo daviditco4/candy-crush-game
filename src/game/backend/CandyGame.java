@@ -4,46 +4,41 @@ import game.backend.cell.Cell;
 import game.backend.element.Element;
 import game.backend.level.Level0;
 import game.backend.level.Level1;
+import game.backend.level.LevelBase;
 
 public class CandyGame implements GameListener {
 	public static CandyGame instance = new CandyGame();
 
-	private Level0 level = new Level1();
-	private Grid grid;
+	private LevelBase level = new Level1();
 	private GameState state;
 	
 	private CandyGame() {
 	}
 	
 	public void initGame() {
-		try {
-			grid = level.getClass().newInstance();
-		} catch(IllegalAccessException | InstantiationException e) {
-			System.out.println("ERROR AL INICIAR");
-		}
-		state = grid.createState();
-		grid.initialize();
+		state = level.createState();
+		level.initialize();
 		addGameListener(this);
 	}
 
-	public Level0 level() {
+	public LevelBase level() {
 		return level;
 	}
 
 	public int getSize() {
-		return Grid.SIZE;
+		return LevelBase.SIZE;
 	}
 	
 	public boolean tryMove(int y1, int x1, int y2, int x2){
-		return grid.tryMove(y1, x1, y2, x2);
+		return level.tryMove(y1, x1, y2, x2);
 	}
 	
 	public Cell get(int y, int x){
-		return grid.getCell(y, x);
+		return level.getCell(y, x);
 	}
 	
 	public void addGameListener(GameListener listener) {
-		grid.addListener(listener);
+		level.addListener(listener);
 	}
 	
 	public long getScore() {

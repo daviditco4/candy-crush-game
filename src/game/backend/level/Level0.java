@@ -86,8 +86,4 @@ public class Level0 extends LevelBase {
 		}
 	}
 
-	public Element generateCandy(CandyColor color){
-		return new Candy(color);
-	}
-
 }

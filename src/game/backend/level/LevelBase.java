@@ -145,4 +145,10 @@ public abstract class LevelBase {
 		}
 	}
 
+	public abstract int getMaxMoves();
+
+	public Element generateCandy(CandyColor color){
+		return new Candy(color);
+	}
+
 }
