@@ -3,15 +3,14 @@ package game.backend;
 import game.backend.cell.Cell;
 import game.backend.element.Element;
 import game.backend.level.Level1;
-import game.backend.level.Level2;
 
 public class CandyGame implements GameListener{
 	
-	private Level2 level;
+	private Level1 level;
 	private Grid grid;
 	private GameState state;
 	
-	public CandyGame(Level2 level) {
+	public CandyGame(Level1 level) {
 		this.level = level;
 	}
 	
