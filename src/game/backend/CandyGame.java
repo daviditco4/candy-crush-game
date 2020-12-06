@@ -62,9 +62,9 @@ public class CandyGame implements GameListener {
 
 	public String getFinalMessage(){
 		if(playerWon()){
-			return level.getMessage(true);
+			return level.getVictoryMessage();
 		}
-		return level.getMessage(false);
+		return level.getLoosingMessage();
 	}
 
 	@Override

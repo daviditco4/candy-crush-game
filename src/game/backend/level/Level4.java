@@ -13,6 +13,13 @@ public class Level4 extends LevelBase {
         return "Time left: "+ state().getTimer();
     }
 
+    public String getVictoryMessage(){
+        return "Buena esa capo";
+    }
+    public String getLoosingMessage(){
+        return "Alpiste perdiste no hay nadie peor que vos";
+    }
+
     @Override
     protected GameState newState() {
         return new Level4State(startingTime);

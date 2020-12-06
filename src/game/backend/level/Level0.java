@@ -18,6 +18,13 @@ public class Level0 extends LevelBase {
 		return (state().getScore()) + "                   " + stepsLeft() + " moves remaining";
 	}
 
+	public String getVictoryMessage(){
+		return "Buena esa capo";
+	}
+	public String getLoosingMessage(){
+		return "Alpiste perdiste no hay nadie peor que vos";
+	}
+
 	//Retorno la cantidad de pasos que quedan segun el nivel
 	private int stepsLeft(){
 		return MAX_MOVES - state().getMoves();

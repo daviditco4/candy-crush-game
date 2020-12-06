@@ -13,6 +13,13 @@ public class Level1 extends LevelBase {
         return (state().getScore()) + " " + stepsLeft() + " remaining moves\t" + getRemainingCells() + " cells remaining";
     }
 
+    public String getVictoryMessage(){
+        return "Buena esa capo";
+    }
+    public String getLoosingMessage(){
+        return "Alpiste perdiste no hay nadie peor que vos";
+    }
+
     @Override
     protected GameState newState() {
         return new Level1State(MAX_MOVES);

@@ -79,7 +79,7 @@ public class CandyFrame extends VBox {
 	public void updateScorePanel(){
 		String message = game.getDisplayString();
 		if (game.isFinished()) {
-			game.getFinalMessage();
+			message = game.getFinalMessage();
 		}
 		scorePanel.updateScore(message);
 	}

@@ -182,9 +182,7 @@ public abstract class LevelBase {
 		return new Candy(color);
 	}
 
-	public String getMessage(boolean playerWon){
-		String msg = "Finished - player ";
-		return playerWon? (msg + "won") : (msg + "lost");
-	}
+	public abstract String getVictoryMessage();
+	public abstract String getLoosingMessage();
 
 }
