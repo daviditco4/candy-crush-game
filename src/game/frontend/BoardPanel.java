@@ -33,6 +33,10 @@ public class BoardPanel extends TilePane {
 
 	public void setColor(int row, int column, Color color){
 		Light.Distant spotLight = new Light.Distant();
+		if (color == null){
+			cells[row][column].setEffect(null);
+			return;
+		}
 		spotLight.setColor(color);
 		spotLight.setElevation(100);
 		Lighting lighting = new Lighting(spotLight);
