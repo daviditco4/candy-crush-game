@@ -21,6 +21,7 @@ public class Level0 extends LevelBase {
 	public String getVictoryMessage(){
 		return "Buena esa capo";
 	}
+
 	public String getLosingMessage(){
 		return "Alpiste perdiste no hay nadie peor que vos";
 	}
