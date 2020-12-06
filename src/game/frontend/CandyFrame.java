@@ -3,15 +3,20 @@ package game.frontend;
 import game.backend.CandyGame;
 import game.backend.GameListener;
 import game.backend.cell.Cell;
+import game.backend.element.CandyTimeBonus;
 import game.backend.element.Element;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Point2D;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.awt.*;
@@ -44,17 +49,29 @@ public class CandyFrame extends VBox {
 				Duration frameTime = Duration.ZERO;
 				for (int y = game().getSize() - 1; y >= 0; y--) {
 					for (int x = game().getSize() - 1; x >= 0; x--) {
-						int finalI = y;
-						int finalJ = x;
+						int finalY = y;
+						int finalX = x;
 						Cell cell = CandyFrame.this.game.get(y, x);
 						Element element = cell.getContent();
 						Color cellColor = cell.getColor();
 						Image image = images.getImage(element);
 						if(cellColor != null){
-							timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setColor(finalI, finalJ, cellColor)));
+							timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setColor(finalY, finalX, cellColor)));
 						}
-						timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setImage(finalI, finalJ, null)));
-						timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setImage(finalI, finalJ, image)));
+						timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setImage(finalY, finalX, null)));
+						timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setImage(finalY, finalX, image)));
+						if (element instanceof CandyTimeBonus){
+							DropShadow dropShadow = new DropShadow();
+							dropShadow.setRadius(3.0);
+							dropShadow.setOffsetX(3.0);
+							dropShadow.setOffsetY(3.0);
+							dropShadow.setColor(Color.CYAN);
+							Text text = new Text("+"+((CandyTimeBonus) element).getTimeBonus());
+							text.setFont(Font.font("Impact", FontWeight.BOLD, 40));
+							text.setFill(Color.BLACK);
+							text.setEffect(dropShadow);
+							timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.addNode(finalY, finalX, text)));
+						}
 					}
 					frameTime = frameTime.add(frameGap);
 				}

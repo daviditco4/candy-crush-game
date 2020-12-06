@@ -7,12 +7,12 @@ import game.backend.level.Level1;
 
 public class CandyGame implements GameListener{
 	
-	private Level0 level;
+	private static Level0 level;
 	private Grid grid;
 	private GameState state;
 	
 	public CandyGame(Level0 level) {
-		this.level = level;
+		CandyGame.level = level;
 	}
 	
 	public void initGame() {
@@ -24,6 +24,10 @@ public class CandyGame implements GameListener{
 		state = grid.createState();
 		grid.initialize();
 		addGameListener(this);
+	}
+
+	public static Level0 level(){
+		return level;
 	}
 	
 	public int getSize() {
