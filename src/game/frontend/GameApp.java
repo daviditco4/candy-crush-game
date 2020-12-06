@@ -10,9 +10,11 @@ public class GameApp extends Application {
 		launch(args);
 	}
 
+	public static CandyFrame frame;
+
 	@Override
 	public void start(Stage primaryStage) {
-		CandyFrame frame = new CandyFrame();
+		frame = new CandyFrame();
 		Scene scene = new Scene(frame);
 		primaryStage.setResizable(false);
 		primaryStage.setScene(scene);

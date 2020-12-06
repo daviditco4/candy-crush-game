@@ -1,5 +1,9 @@
 package game.frontend;
 
+import game.backend.CandyGame;
+import game.backend.level.Level0;
+import game.backend.level.Level1;
+import game.backend.level.Level4;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 
@@ -34,17 +38,33 @@ public class AppMenu extends MenuBar {
 
         Menu levels = new Menu("Niveles");
         MenuItem level0 = new MenuItem("Estándar");
-        level0.setOnAction(event -> {
-            requestConfirmationAndThen(
-                    "Cambiar de nivel",
-                    "Cambiar al nivel Estándar",
-                    "¿Está seguro que desea salir del nivel actual?",
-                    () -> System.out.println("Not implemented")
-            );
-        });
+        level0.setOnAction(event -> requestConfirmationAndThen(
+                "Cambiar de nivel",
+                "Cambiar al nivel Estándar",
+                "¿Está seguro que desea salir del nivel actual?",
+                () -> CandyGame.instance.setLevel(new Level0())
+        ));
         MenuItem level1 = new MenuItem("Golden Board");
+        level1.setOnAction(event -> requestConfirmationAndThen(
+                "Cambiar de nivel",
+                "Cambiar al nivel Golden Board",
+                "¿Está seguro que desea salir del nivel actual?",
+                () -> CandyGame.instance.setLevel(new Level1())
+        ));
         MenuItem level2 = new MenuItem("Wall Blast");
+        level2.setOnAction(event -> requestConfirmationAndThen(
+                "Cambiar de nivel",
+                "Cambiar al nivel Golden Board",
+                "¿Está seguro que desea salir del nivel actual?",
+                () -> System.out.println("Not implemented.")
+        ));
         MenuItem level4 = new MenuItem("Time Limit");
+        level4.setOnAction(event -> requestConfirmationAndThen(
+                "Cambiar de nivel",
+                "Cambiar al nivel Golden Board",
+                "¿Está seguro que desea salir del nivel actual?",
+                () -> CandyGame.instance.setLevel(new Level4())
+        ));
         levels.getItems().add(level0);
         levels.getItems().add(level1);
         levels.getItems().add(level2);

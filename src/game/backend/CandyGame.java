@@ -3,13 +3,13 @@ package game.backend;
 import game.backend.cell.Cell;
 import game.backend.element.Element;
 import game.backend.level.Level0;
-import game.backend.level.Level1;
 import game.backend.level.LevelBase;
+import game.frontend.GameApp;
 
 public class CandyGame implements GameListener {
 	public static CandyGame instance = new CandyGame();
 
-	private LevelBase level = new Level1();
+	private LevelBase level = new Level0();
 	private GameState state;
 	
 	private CandyGame() {
@@ -23,6 +23,13 @@ public class CandyGame implements GameListener {
 
 	public LevelBase level() {
 		return level;
+	}
+
+	public void setLevel(LevelBase level){
+		this.level = level;
+		initGame();
+		GameApp.frame.addClickListenerToCurrentLevel();
+		level.wasUpdated();
 	}
 
 	public int getSize() {

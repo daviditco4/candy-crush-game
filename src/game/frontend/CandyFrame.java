@@ -19,8 +19,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-import java.awt.*;
-
 public class CandyFrame extends VBox {
 
 	private static final int CELL_SIZE = 65;
@@ -39,6 +37,37 @@ public class CandyFrame extends VBox {
 		scorePanel = new ScorePanel();
 		getChildren().add(scorePanel);
 		game.initGame();
+		addClickListenerToCurrentLevel();
+
+		addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+			// If game is finished clicking on cells does nothing
+			if(!game().isFinished()) {
+				if (lastPoint == null) {
+					lastPoint = translateCoords(event.getSceneX(), event.getSceneY());
+					System.out.println("Get first = " + lastPoint);
+				} else {
+					Point2D newPoint = translateCoords(event.getSceneX(), event.getSceneY());
+					if (newPoint != null) {
+						System.out.println("Get second = " + newPoint);
+						game().tryMove((int) lastPoint.getY(), (int) lastPoint.getX(), (int) newPoint.getY(), (int) newPoint.getX());
+						String message = ((Long) game().getScore()).toString() + "                   " + game().stepsLeft() + " moves remaining";
+						if (game().isFinished()) {
+							if (game().playerWon()) {
+								message = message + " Finished - Player Won!";
+							} else {
+								message = message + " Finished - Loser !";
+							}
+						}
+						scorePanel.updateScore(message);
+						lastPoint = null;
+					}
+				}
+			}
+		});
+
+	}
+
+	public void addClickListenerToCurrentLevel(){
 		GameListener listener;
 		game.addGameListener(listener = new GameListener() {
 			@Override
@@ -83,33 +112,6 @@ public class CandyFrame extends VBox {
 		});
 
 		listener.gridUpdated();
-
-		addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			// If game is finished clicking on cells does nothing
-			if(!game().isFinished()) {
-				if (lastPoint == null) {
-					lastPoint = translateCoords(event.getSceneX(), event.getSceneY());
-					System.out.println("Get first = " + lastPoint);
-				} else {
-					Point2D newPoint = translateCoords(event.getSceneX(), event.getSceneY());
-					if (newPoint != null) {
-						System.out.println("Get second = " + newPoint);
-						game().tryMove((int) lastPoint.getY(), (int) lastPoint.getX(), (int) newPoint.getY(), (int) newPoint.getX());
-						String message = ((Long) game().getScore()).toString() + "                   " + game().stepsLeft() + " moves remaining";
-						if (game().isFinished()) {
-							if (game().playerWon()) {
-								message = message + " Finished - Player Won!";
-							} else {
-								message = message + " Finished - Loser !";
-							}
-						}
-						scorePanel.updateScore(message);
-						lastPoint = null;
-					}
-				}
-			}
-		});
-
 	}
 
 	private CandyGame game() {
