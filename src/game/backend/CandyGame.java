@@ -48,12 +48,12 @@ public class CandyGame implements GameListener {
 		level.addListener(listener);
 	}
 	
-	public boolean isFinished() {
-		return level.state().gameOver();
+	public boolean isGameFinished() {
+		return level.state().gameOver() || level.state().playerWon();
 	}
 
 	public String getDisplayString(){
-		return level.getDisplayString();
+		return level.getDisplayMessage();
 	}
 	
 	private boolean playerWon() {
@@ -64,7 +64,7 @@ public class CandyGame implements GameListener {
 		if(playerWon()){
 			return level.getVictoryMessage();
 		}
-		return level.getLoosingMessage();
+		return level.getLosingMessage();
 	}
 
 	@Override

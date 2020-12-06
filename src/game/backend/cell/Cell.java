@@ -52,6 +52,7 @@ public class Cell {
 	
 	public void clearContent() {
 		if (content.isMovable()) {
+			content.onDestroyed();
 			Direction[] explosionCascade = content.explode();
 			levelBase.cellExplosion(content);
 			this.content = new Nothing();

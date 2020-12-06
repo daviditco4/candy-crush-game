@@ -9,14 +9,14 @@ public class Level1 extends LevelBase {
     private static final int MAX_MOVES = 2000;
 
     @Override
-    public String getDisplayString() {
+    public String getDisplayMessage() {
         return (state().getScore()) + " " + stepsLeft() + " remaining moves\t" + getRemainingCells() + " cells remaining";
     }
 
     public String getVictoryMessage(){
         return "Buena esa capo";
     }
-    public String getLoosingMessage(){
+    public String getLosingMessage(){
         return "Alpiste perdiste no hay nadie peor que vos";
     }
 

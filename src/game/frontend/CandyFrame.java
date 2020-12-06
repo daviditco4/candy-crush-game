@@ -45,7 +45,7 @@ public class CandyFrame extends VBox {
 
 		addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 			// If game is finished clicking on cells does nothing
-			if(!game().isFinished()) {
+			if(!game().isGameFinished()) {
 				if (lastPoint == null) {
 					lastPoint = translateCoords(event.getSceneX(), event.getSceneY());
 					System.out.println("Get first = " + lastPoint);
@@ -78,7 +78,7 @@ public class CandyFrame extends VBox {
 
 	public void updateScorePanel(){
 		String message = game.getDisplayString();
-		if (game.isFinished()) {
+		if (game.isGameFinished()) {
 			message = game.getFinalMessage();
 		}
 		scorePanel.updateScore(message);

@@ -22,7 +22,8 @@ public class CandyTimeBonus extends Candy {
 
     @Override
     public void onDestroyed() {
-        CandyGame.instance.level().state().increaseTimer(timeBonus);
+        if (CandyGame.instance.level().firstMoveDone)
+            CandyGame.instance.level().state().increaseTimer(timeBonus);
     }
 
     public int getTimeBonus() {

@@ -26,8 +26,9 @@ public abstract class LevelBase {
 	private List<GameListener> listeners = new ArrayList<>();
 	private MoveMaker moveMaker;
 	private FigureDetector figureDetector;
+	public boolean firstMoveDone = false;
 
-	public abstract String getDisplayString();
+	public abstract String getDisplayMessage();
 	protected abstract GameState newState();
 	public void updateFixedTime(){}
 	protected void fillCells() {
@@ -115,6 +116,7 @@ public abstract class LevelBase {
 		Move move = moveMaker.getMove(y1, x1, y2, x2);
 		swapContent(y1, x1, y2, x2);
 		if (move.isValid()) {
+			if (!firstMoveDone) firstMoveDone = true;
 			move.removeElements();
 			fallElements();
 			return true;
@@ -183,6 +185,6 @@ public abstract class LevelBase {
 	}
 
 	public abstract String getVictoryMessage();
-	public abstract String getLoosingMessage();
+	public abstract String getLosingMessage();
 
 }
