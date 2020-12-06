@@ -10,34 +10,34 @@ public class TwoWrappedMove extends Move {
 	
 	@Override
 	public void removeElements() {
-		int currI, currJ;
-		if (i1 == i2) {
-			if (j1 < j2) {
-				currI = i1;
-				currJ = j1;
+		int currY, currX;
+		if (y1 == y2) {
+			if (x1 < x2) {
+				currY = y1;
+				currX = x1;
 			} else {
-				currI = i2;
-				currJ = j2;
+				currY = y2;
+				currX = x2;
 			}
-			clearContent(currI,currJ-1);
-			clearContent(currI, currJ + 2);
+			clearContent(currY,currX-1);
+			clearContent(currY, currX + 2);
 			for(int n = -1; n < 3; n++) {
-				clearContent(currI - 1, currJ + n);
-				clearContent(currI + 1, currJ + n);
+				clearContent(currY - 1, currX + n);
+				clearContent(currY + 1, currX + n);
 			}
 		} else {
-			if (i1 < i2) {
-				currI = i1;
-				currJ = j1;
+			if (y1 < y2) {
+				currY = y1;
+				currX = x1;
 			} else {
-				currI = i2;
-				currJ = j2;
+				currY = y2;
+				currX = x2;
 			}
-			clearContent(currI,currJ-1);
-			clearContent(currI,currJ+2);
+			clearContent(currY,currX-1);
+			clearContent(currY,currX+2);
 			for(int n = -1; n < 3; n++) {
-				clearContent(currI - 1, currJ + n);
-				clearContent(currI + 1, currJ + n);
+				clearContent(currY - 1, currX + n);
+				clearContent(currY + 1, currX + n);
 			}
 		}
 	}

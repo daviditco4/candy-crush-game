@@ -10,17 +10,17 @@ public class WrappedStripedMove extends Move {
 	
 	@Override
 	public void removeElements() {
-		for(int i = -1; i < 2; i++) {
-			for(int j = 0; j < Grid.SIZE; j++) {
-				if (i2 + i >= 0 && i2 + i < Grid.SIZE) {
-					clearContent(i2 + i, j);
+		for(int y = -1; y < 2; y++) {
+			for(int x = 0; x < Grid.SIZE; x++) {
+				if (y2 + y >= 0 && y2 + y < Grid.SIZE) {
+					clearContent(y2 + y, x);
 				}
 			}
 		}
-		for(int j = -1; j < 2; j++) {
-			for(int i = 0; i < Grid.SIZE; i++) {
-				if (j2 + j >= 0 && j2 + j < Grid.SIZE) {
-					clearContent(i, j2 + j);
+		for(int x = -1; x < 2; x++) {
+			for(int y = 0; y < Grid.SIZE; y++) {
+				if (x2 + x >= 0 && x2 + x < Grid.SIZE) {
+					clearContent(y, x2 + x);
 				}
 			}
 		}

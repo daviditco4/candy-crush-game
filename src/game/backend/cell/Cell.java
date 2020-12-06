@@ -4,16 +4,27 @@ import game.backend.Grid;
 import game.backend.element.Element;
 import game.backend.element.Nothing;
 import game.backend.move.Direction;
+import javafx.scene.paint.Color;
 
 public class Cell {
 	
 	private Grid grid;
 	private Cell[] around = new Cell[Direction.values().length];
 	private Element content;
+	// Cell color
+	private Color color;
 	
 	public Cell(Grid grid) {
 		this.grid = grid;
 		this.content = new Nothing();
+	}
+
+	public void setColor(Color color){
+		this.color = color;
+	}
+
+	public Color getColor(){
+		return color;
 	}
 	
 	public void setAround(Cell up, Cell down, Cell left, Cell right) {
@@ -76,7 +87,12 @@ public class Cell {
 		Cell up = around[Direction.UP.ordinal()];
 		if (this.isEmpty() && !up.isEmpty() && up.isMovable()) {
 			this.content = up.getAndClearContent();
-			grid.wasUpdated();
+			/* This just updates the grid view, but there´s no point in updating
+			*  the view every single time a candy is moved. Added wasUpdated() to tryMove() on
+			*  both Level1 and Level2 (subject to future change)
+			*
+			*  grid.wasUpdated();
+			*/
 			if (this.hasFloor()) {
 				grid.tryRemove(this);
 				return true;
@@ -84,7 +100,7 @@ public class Cell {
 				Cell down = around[Direction.DOWN.ordinal()];
 				return down.fallUpperContent();
 			}
-		} 
+		}
 		return false;
 	}
 	

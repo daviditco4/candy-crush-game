@@ -2,20 +2,22 @@ package game.backend;
 
 import game.backend.cell.Cell;
 import game.backend.element.Element;
+import game.backend.level.Level0;
+import game.backend.level.Level1;
 
-public class CandyGame implements GameListener {
+public class CandyGame implements GameListener{
 	
-	private Class<?> levelClass;
+	private Level0 level;
 	private Grid grid;
 	private GameState state;
 	
-	public CandyGame(Class<?> clazz) {
-		this.levelClass = clazz;
+	public CandyGame(Level0 level) {
+		this.level = level;
 	}
 	
 	public void initGame() {
 		try {
-			grid = (Grid)levelClass.newInstance();
+			grid = level.getClass().newInstance();
 		} catch(IllegalAccessException | InstantiationException e) {
 			System.out.println("ERROR AL INICIAR");
 		}
@@ -28,12 +30,12 @@ public class CandyGame implements GameListener {
 		return Grid.SIZE;
 	}
 	
-	public boolean tryMove(int i1, int j1, int i2, int j2){
-		return grid.tryMove(i1, j1, i2, j2);
+	public boolean tryMove(int y1, int x1, int y2, int x2){
+		return grid.tryMove(y1, x1, y2, x2);
 	}
 	
-	public Cell get(int i, int j){
-		return grid.getCell(i, j);
+	public Cell get(int y, int x){
+		return grid.getCell(y, x);
 	}
 	
 	public void addGameListener(GameListener listener) {
@@ -46,6 +48,11 @@ public class CandyGame implements GameListener {
 	
 	public boolean isFinished() {
 		return state.gameOver();
+	}
+
+	//Retorno la cantidad de pasos que quedan segun el nivel
+	public int stepsLeft(){
+		return level.getMaxMoves() - state.getMoves();
 	}
 	
 	public boolean playerWon() {
@@ -61,5 +68,7 @@ public class CandyGame implements GameListener {
 	public void gridUpdated() {
 		//
 	}
+
+
 
 }
