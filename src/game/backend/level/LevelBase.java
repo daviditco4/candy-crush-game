@@ -81,7 +81,7 @@ public abstract class LevelBase {
 		}
 		fillCells();
 		fallElements();
-	}	
+	}
 
 	public Element get(int y, int x) {
 		return g[x][y].getContent();

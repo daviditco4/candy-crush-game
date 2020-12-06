@@ -3,6 +3,7 @@ package game.frontend;
 import game.backend.CandyGame;
 import game.backend.level.Level0;
 import game.backend.level.Level1;
+import game.backend.level.Level2;
 import game.backend.level.Level4;
 import javafx.application.Platform;
 import javafx.scene.control.*;
@@ -56,7 +57,7 @@ public class AppMenu extends MenuBar {
                 "Cambiar de nivel",
                 "Cambiar al nivel Golden Board",
                 "¿Está seguro que desea salir del nivel actual?",
-                () -> System.out.println("Not implemented.")
+                () -> CandyGame.instance.setLevel(new Level2())
         ));
         MenuItem level4 = new MenuItem("Time Limit");
         level4.setOnAction(event -> requestConfirmationAndThen(
