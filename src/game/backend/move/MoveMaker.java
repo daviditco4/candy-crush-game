@@ -53,9 +53,9 @@ public class MoveMaker {
 		map.put(new Bomb().getKey() + new Bomb().getKey(), new TwoBombMove(grid));
 	}
 	
-	public Move getMove(int i1, int j1, int i2, int j2) {
-		Move move = map.get(grid.get(i1, j1).getKey() + grid.get(i2, j2).getKey());
-		move.setCoords(i1, j1, i2, j2);
+	public Move getMove(int y1, int x1, int y2, int x2) {
+		Move move = map.get(grid.get(y1, x1).getKey() + grid.get(y2, x2).getKey());
+		move.setCoords(y1, x1, y2, x2);
 		return move;
 	}
 

@@ -11,22 +11,22 @@ public enum Checkpoint {
 	L(0,-1, 64),
 	LL(0,-2, 128);
 	
-	private int i;
-	private int j;
+	private int y;
+	private int x;
 	private int value;
 	
-	Checkpoint(int i, int j, int value) {
-		this.i = i;
-		this.j = j;
+	Checkpoint(int y, int x, int value) {
+		this.y = y;
+		this.x = x;
 		this.value = value;
 	}
 	
-	public int getI() {
-		return i;
+	public int getY() {
+		return y;
 	}
 	
-	public int getJ() {
-		return j;
+	public int getX() {
+		return x;
 	}
 	
 	public int getValue() {

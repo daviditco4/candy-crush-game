@@ -26,39 +26,39 @@ public class Level0 extends Grid {
 		candyGenCell = new CandyGeneratorCell(this);
 		
 		//corners
-		g()[0][0].setAround(candyGenCell, g()[1][0], wallCell, g()[0][1]);
-		g()[0][SIZE-1].setAround(candyGenCell, g()[1][SIZE-1], g()[0][SIZE-2], wallCell);
-		g()[SIZE-1][0].setAround(g()[SIZE-2][0], wallCell, wallCell, g()[SIZE-1][1]);
-		g()[SIZE-1][SIZE-1].setAround(g()[SIZE-2][SIZE-1], wallCell, g()[SIZE-1][SIZE-2], wallCell);
+		g()[0][0].setAround(candyGenCell, g()[0][1], wallCell, g()[1][0]);
+		g()[SIZE-1][0].setAround(candyGenCell, g()[SIZE-1][1], g()[SIZE-2][0], wallCell);
+		g()[0][SIZE-1].setAround(g()[0][SIZE-2], wallCell, wallCell, g()[1][SIZE-1]);
+		g()[SIZE-1][SIZE-1].setAround(g()[SIZE-1][SIZE-2], wallCell, g()[SIZE-2][SIZE-1], wallCell);
 
 		//upper line cells
-		for (int j = 1; j < SIZE-1; j++) {
-			g()[0][j].setAround(candyGenCell,g()[1][j],g()[0][j-1],g()[0][j+1]);
+		for (int x = 1; x < SIZE-1; x++) {
+			g()[x][0].setAround(candyGenCell,g()[x][1],g()[x-1][0],g()[x+1][0]);
 		}
 		//bottom line cells
-		for (int j = 1; j < SIZE-1; j++) {
-			g()[SIZE-1][j].setAround(g()[SIZE-2][j], wallCell, g()[SIZE-1][j-1],g()[SIZE-1][j+1]);
+		for (int x = 1; x < SIZE-1; x++) {
+			g()[x][SIZE-1].setAround(g()[x][SIZE-2], wallCell, g()[x-1][SIZE-1],g()[x+1][SIZE-1]);
 		}
 		//left line cells
-		for (int i = 1; i < SIZE-1; i++) {
-			g()[i][0].setAround(g()[i-1][0],g()[i+1][0], wallCell ,g()[i][1]);
+		for (int y = 1; y < SIZE-1; y++) {
+			g()[0][y].setAround(g()[0][y-1],g()[0][y+1], wallCell ,g()[1][y]);
 		}
 		//right line cells
-		for (int i = 1; i < SIZE-1; i++) {
-			g()[i][SIZE-1].setAround(g()[i-1][SIZE-1],g()[i+1][SIZE-1], g()[i][SIZE-2], wallCell);
+		for (int y = 1; y < SIZE-1; y++) {
+			g()[SIZE-1][y].setAround(g()[SIZE-1][y-1],g()[SIZE-1][y+1], g()[SIZE-2][y], wallCell);
 		}		
 		//central cells
-		for (int i = 1; i < SIZE-1; i++) {
-			for (int j = 1; j < SIZE-1; j++) {
-				g()[i][j].setAround(g()[i-1][j],g()[i+1][j],g()[i][j-1],g()[i][j+1]);
+		for (int x = 1; x < SIZE-1; x++) {
+			for (int y = 1; y < SIZE-1; y++) {
+				g()[x][y].setAround(g()[x][y-1],g()[x][y+1],g()[x-1][y],g()[x+1][y]);
 			}
 		}
 	}
 	
 	@Override
-	public boolean tryMove(int i1, int j1, int i2, int j2) {
+	public boolean tryMove(int y1, int x1, int y2, int x2) {
 		boolean ret;
-		if (ret = super.tryMove(i1, j1, i2, j2)) {
+		if (ret = super.tryMove(y1, x1, y2, x2)) {
 			state().addMove();
 			wasUpdated();
 		}

@@ -35,30 +35,30 @@ public abstract class Grid {
 	public void initialize() {
 		moveMaker = new MoveMaker(this);
 		figureDetector = new FigureDetector(this);
-		for (int i = 0; i < SIZE; i++) {
-			for (int j = 0; j < SIZE; j++) {
-				g[i][j] = new Cell(this);
-				gMap.put(g[i][j], new Point(i,j));
+		for (int y = 0; y < SIZE; y++) {
+			for (int x = 0; x < SIZE; x++) {
+				g[x][y] = new Cell(this);
+				gMap.put(g[x][y], new Point(x,y));
 			}
 		}
 		fillCells();
 		fallElements();
 	}	
 
-	public Element get(int i, int j) {
-		return g[i][j].getContent();
+	public Element get(int y, int x) {
+		return g[x][y].getContent();
 	}
 	
-	public Cell getCell(int i, int j) {
-		return g[i][j];
+	public Cell getCell(int y, int x) {
+		return g[x][y];
 	}
 
 	public void fallElements() {
-		for (int x=SIZE-1;x>=0;x--){
-			for (int y=0;y<SIZE;y++){
+		for (int y=SIZE-1;y>=0;y--){
+			for (int x=0;x<SIZE;x++){
 				if (g[x][y].isEmpty()) {
 					if (g[x][y].fallUpperContent()) {
-						x = SIZE;
+						y = SIZE;
 						break;
 					}
 				}
@@ -66,23 +66,23 @@ public abstract class Grid {
 		}
 	}
 	
-	public void clearContent(int i, int j) {
-		g[i][j].clearContent();
+	public void clearContent(int y, int x) {
+		g[x][y].clearContent();
 	}
 	
-	public void setContent(int i, int j, Element e) {
-		g[i][j].setContent(e);
+	public void setContent(int y, int x, Element e) {
+		g[x][y].setContent(e);
 	}
 	
-	public boolean tryMove(int i1, int j1, int i2, int j2) {
-		Move move = moveMaker.getMove(i1, j1, i2, j2);
-		swapContent(i1, j1, i2, j2);
+	public boolean tryMove(int y1, int x1, int y2, int x2) {
+		Move move = moveMaker.getMove(y1, x1, y2, x2);
+		swapContent(y1, x1, y2, x2);
 		if (move.isValid()) {
 			move.removeElements();
 			fallElements();
 			return true;
 		} else {
-			swapContent(i1, j1, i2, j2);
+			swapContent(y1, x1, y2, x2);
 			return false;
 		}
 	}	
@@ -90,31 +90,31 @@ public abstract class Grid {
 	public Figure tryRemove(Cell cell) {
 		if (gMap.containsKey(cell)) {
 			Point p = gMap.get(cell);
-			Figure f = figureDetector.checkFigure(p.x, p.y);
+			Figure f = figureDetector.checkFigure(p.y, p.x);
 			if (f != null) {
-				removeFigure(p.x, p.y, f);
+				removeFigure(p.y, p.x, f);
 			}
 			return f;
 		}
 		return null;
 	}
 	
-	private void removeFigure(int i, int j, Figure f) {
-		CandyColor color = ((Candy)get(i, j)).getColor();
+	private void removeFigure(int y, int x, Figure f) {
+		CandyColor color = ((Candy)get(y, x)).getColor();
 		if (f.hasReplacement()) {
-			setContent(i, j, f.generateReplacement(color));
+			setContent(y, x, f.generateReplacement(color));
 		} else {
-			clearContent(i, j);
+			clearContent(y, x);
 		}
 		for (Point p: f.getPoints()) {
-			clearContent(i + p.x, j + p.y);
+			clearContent(y + p.y, x + p.x);
 		}
 	}
 
-	public void swapContent(int i1, int j1, int i2, int j2) {
-		Element e = g[i1][j1].getContent();
-		g[i1][j1].setContent(g[i2][j2].getContent());
-		g[i2][j2].setContent(e);
+	public void swapContent(int y1, int x1, int y2, int x2) {
+		Element e = g[x1][y1].getContent();
+		g[x1][y1].setContent(g[x2][y2].getContent());
+		g[x2][y2].setContent(e);
 		wasUpdated();
 	}
 	

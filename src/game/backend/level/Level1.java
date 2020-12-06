@@ -5,15 +5,15 @@ import javafx.scene.paint.Color;
 public class Level1 extends Level0 {
 
     @Override
-    public boolean tryMove(int i1, int j1, int i2, int j2) {
-        if(super.tryMove(i1, j1, i2, j2)){
-            if(i1 == i2){
-                for(int j=0 ; j < SIZE ; j++){
-                    getCell(i1, j).setColor(Color.YELLOW);
+    public boolean tryMove(int y1, int x1, int y2, int x2) {
+        if(super.tryMove(y1, x1, y2, x2)){
+            if(y1 == y2){
+                for(int x=0 ; x < SIZE ; x++){
+                    getCell(y1, x).setColor(Color.YELLOW);
                 }
             } else {
-                for(int i=0 ; i < SIZE ; i++){
-                    getCell(i, j1).setColor(Color.YELLOW);
+                for(int y=0 ; y < SIZE ; y++){
+                    getCell(y, x1).setColor(Color.YELLOW);
                 }
             }
             wasUpdated();

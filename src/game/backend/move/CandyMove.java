@@ -20,18 +20,18 @@ public class CandyMove extends Move {
 	@Override
 	public boolean internalValidation() {
 		this.detector = new FigureDetector(grid);
-		f1 = detector.checkFigure(i1, j1);
-		f2 = detector.checkFigure(i2, j2);
+		f1 = detector.checkFigure(y1, x1);
+		f2 = detector.checkFigure(y2, x2);
 		return f1 != null || f2 != null;
 	}	
 
 	@Override
 	public void removeElements() {
 		if (f1 != null) {
-			detector.removeFigure(i1, j1, f1);
+			detector.removeFigure(y1, x1, f1);
 		}
 		if (f2 != null) {
-			detector.removeFigure(i2, j2, f2);
+			detector.removeFigure(y2, x2, f2);
 		}
 	}
 

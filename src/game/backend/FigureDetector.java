@@ -26,14 +26,14 @@ public class FigureDetector {
 		return null;
 	}
 	
-	private int readCheckpoints(int i, int j) {
-		Element curr = grid.get(i,j);
+	private int readCheckpoints(int y, int x) {
+		Element curr = grid.get(y,x);
 		int acum = 0;
 		for (Checkpoint cp: Checkpoint.values()) {
-			int newI = i + cp.getI();
-			int newJ = j + cp.getJ();
-			if (newI >= 0 && newI < Grid.SIZE && newJ >= 0 && newJ < Grid.SIZE) {
-				if (curr.equals(grid.get(newI, newJ))) {
+			int newY = y + cp.getY();
+			int newX = x + cp.getX();
+			if (newY >= 0 && newY < Grid.SIZE && newX >= 0 && newX < Grid.SIZE) {
+				if (curr.equals(grid.get(newY, newX))) {
 					acum += cp.getValue();
 				}
 			}
@@ -41,14 +41,14 @@ public class FigureDetector {
 		return acum;
 	}
 	
-	public void removeFigure(int i, int j, Figure f) {
-		CandyColor color = ((Candy)grid.get(i, j)).getColor();
-		grid.clearContent(i, j);
+	public void removeFigure(int y, int x, Figure f) {
+		CandyColor color = ((Candy)grid.get(y, x)).getColor();
+		grid.clearContent(y, x);
 		if (f.hasReplacement()) {
-			grid.setContent(i, j, f.generateReplacement(color));
+			grid.setContent(y, x, f.generateReplacement(color));
 		}
 		for (Point p: f.getPoints()) {
-			grid.clearContent(i + p.x, j + p.y);
+			grid.clearContent(y + p.y, x + p.x);
 		}
 	}
 	
