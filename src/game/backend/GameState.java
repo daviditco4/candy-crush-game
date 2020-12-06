@@ -1,5 +1,7 @@
 package game.backend;
 
+import game.backend.level.Level0;
+
 public abstract class GameState {
 	
 	private long score = 0;
@@ -25,4 +27,7 @@ public abstract class GameState {
 	
 	public abstract boolean playerWon();
 
+	public void changeLevel(Class<? extends Level0> levelClass) {
+
+	}
 }

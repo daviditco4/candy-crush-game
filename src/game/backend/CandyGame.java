@@ -3,47 +3,47 @@ package game.backend;
 import game.backend.cell.Cell;
 import game.backend.element.Element;
 import game.backend.level.Level0;
-import game.backend.level.LevelBase;
+import game.backend.level.Level1;
 
-public class CandyGame implements GameListener{
-	
-	private static Level0 level;
-	private LevelBase levelBase;
+public class CandyGame implements GameListener {
+	public static CandyGame instance = new CandyGame();
+
+	private Level0 level = new Level1();
+	private Grid grid;
 	private GameState state;
 	
-	public CandyGame(Level0 level) {
-		this.level = level;
+	private CandyGame() {
 	}
 	
 	public void initGame() {
 		try {
-			levelBase = level.getClass().newInstance();
+			grid = level.getClass().newInstance();
 		} catch(IllegalAccessException | InstantiationException e) {
 			System.out.println("ERROR AL INICIAR");
 		}
-		state = levelBase.createState();
-		levelBase.initialize();
+		state = grid.createState();
+		grid.initialize();
 		addGameListener(this);
 	}
 
-	public static Level0 level(){
+	public Level0 level() {
 		return level;
 	}
 
 	public int getSize() {
-		return LevelBase.SIZE;
+		return Grid.SIZE;
 	}
 	
 	public boolean tryMove(int y1, int x1, int y2, int x2){
-		return levelBase.tryMove(y1, x1, y2, x2);
+		return grid.tryMove(y1, x1, y2, x2);
 	}
 	
 	public Cell get(int y, int x){
-		return levelBase.getCell(y, x);
+		return grid.getCell(y, x);
 	}
 	
 	public void addGameListener(GameListener listener) {
-		levelBase.addListener(listener);
+		grid.addListener(listener);
 	}
 	
 	public long getScore() {
@@ -70,9 +70,6 @@ public class CandyGame implements GameListener{
 	
 	@Override
 	public void gridUpdated() {
-		//
+
 	}
-
-
-
 }

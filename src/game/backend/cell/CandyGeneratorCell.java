@@ -24,7 +24,7 @@ public class CandyGeneratorCell extends Cell {
 	@Override
 	public Element getContent() {
 		int i = (int)(Math.random() * CandyColor.values().length);
-		return CandyGame.level().generateCandy(CandyColor.values()[i]);
+		return CandyGame.instance.level().generateCandy(CandyColor.values()[i]);
 	}
 	
 	@Override
