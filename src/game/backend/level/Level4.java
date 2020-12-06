@@ -9,14 +9,14 @@ public class Level4 extends LevelBase {
     private static final int startingTime = 60;
 
     @Override
-    public String getDisplayString() {
+    public String getDisplayMessage() {
         return "Time left: "+ state().getTimer();
     }
 
     public String getVictoryMessage(){
         return "Buena esa capo";
     }
-    public String getLoosingMessage(){
+    public String getLosingMessage(){
         return "Alpiste perdiste no hay nadie peor que vos";
     }
 

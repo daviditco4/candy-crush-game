@@ -27,7 +27,7 @@ public abstract class LevelBase {
 	private MoveMaker moveMaker;
 	private FigureDetector figureDetector;
 
-	public abstract String getDisplayString();
+	public abstract String getDisplayMessage();
 	protected abstract GameState newState();
 	public void updateFixedTime(){}
 	protected void fillCells() {
@@ -183,6 +183,6 @@ public abstract class LevelBase {
 	}
 
 	public abstract String getVictoryMessage();
-	public abstract String getLoosingMessage();
+	public abstract String getLosingMessage();
 
 }

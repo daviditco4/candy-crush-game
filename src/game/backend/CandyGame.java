@@ -53,7 +53,7 @@ public class CandyGame implements GameListener {
 	}
 
 	public String getDisplayString(){
-		return level.getDisplayString();
+		return level.getDisplayMessage();
 	}
 	
 	private boolean playerWon() {
@@ -64,7 +64,7 @@ public class CandyGame implements GameListener {
 		if(playerWon()){
 			return level.getVictoryMessage();
 		}
-		return level.getLoosingMessage();
+		return level.getLosingMessage();
 	}
 
 	@Override
