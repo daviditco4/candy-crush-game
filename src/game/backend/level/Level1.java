@@ -6,21 +6,22 @@ import javafx.scene.paint.Color;
 public class Level1 extends LevelBase {
 
     private int acum;
-    private static final int MAX_MOVES = 20;
+    private static final int MAX_MOVES = 2000;
 
     @Override
     public String getDisplayString() {
-        return "TODO: LEVEL 1 SCORES";
+        return (state().getScore()) + " " + stepsLeft() + " remaining moves\t" + getRemainingCells() + " cells remaining";
     }
 
     @Override
     protected GameState newState() {
-        return new Level1State();
+        return new Level1State(MAX_MOVES);
     }
 
     @Override
     public boolean tryMove(int y1, int x1, int y2, int x2) {
         if(super.tryMove(y1, x1, y2, x2)){
+            state().addMove();
             if(y1 == y2){
                 for(int x=0 ; x < SIZE ; x++){
                     if(getCell(y1, x).getColor() == null){
@@ -42,21 +43,28 @@ public class Level1 extends LevelBase {
         return false;
     }
 
-    public String CellsUnColored(){
-        return String.format("cells remaining: %d", LevelBase.SIZE * LevelBase.SIZE - acum);
+    public int getRemainingCells(){
+        return LevelBase.SIZE * LevelBase.SIZE - acum;
     }
 
-    private static class Level1State extends GameState {
+    //Retorno la cantidad de pasos que quedan segun el nivel
+    private int stepsLeft(){
+        return MAX_MOVES - state().getMoves();
+    }
 
-        public Level1State() {
+    private class Level1State extends GameState {
+        private long maxMoves;
+
+        public Level1State(int maxMoves) {
+            this.maxMoves = maxMoves;
         }
         @Override
         public boolean gameOver() {
-            return false;
+            return playerWon() || getMoves() >= maxMoves;
         }
         @Override
         public boolean playerWon() {
-            return false;
+            return getRemainingCells() == 0;
         }
     }
 

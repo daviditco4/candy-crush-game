@@ -56,10 +56,17 @@ public class CandyGame implements GameListener {
 		return level.getDisplayString();
 	}
 	
-	public boolean playerWon() {
+	private boolean playerWon() {
 		return level.state().playerWon();
 	}
-	
+
+	public String getFinalMessage(){
+		if(playerWon()){
+			return level.getMessage(true);
+		}
+		return level.getMessage(false);
+	}
+
 	@Override
 	public void cellExplosion(Element e) {
 		level.state().addScore(e.getScore());
