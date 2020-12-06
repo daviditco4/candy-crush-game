@@ -4,26 +4,26 @@ import game.backend.GameState;
 import game.backend.Grid;
 import game.backend.cell.CandyGeneratorCell;
 import game.backend.cell.Cell;
+import game.backend.element.Candy;
+import game.backend.element.CandyColor;
+import game.backend.element.Element;
 import game.backend.element.Wall;
 
 public class Level0 extends Grid {
 	
-	private static int REQUIRED_SCORE = 5000;
-	private static int MAX_MOVES = 20;
-	
-	private Cell wallCell;
-	private Cell candyGenCell;
-	
+	private static final int REQUIRED_SCORE = 5000;
+	private static final int MAX_MOVES = 20;
+
 	@Override
 	protected GameState newState() {
-		return new Level1State(REQUIRED_SCORE, MAX_MOVES);
+		return new Level0State(REQUIRED_SCORE, MAX_MOVES);
 	}
 
 	@Override
 	protected void fillCells() {
-		wallCell = new Cell(this);
+		Cell wallCell = new Cell(this);
 		wallCell.setContent(new Wall());
-		candyGenCell = new CandyGeneratorCell(this);
+		Cell candyGenCell = new CandyGeneratorCell(this);
 		
 		//corners
 		g()[0][0].setAround(candyGenCell, g()[0][1], wallCell, g()[1][0]);
@@ -41,7 +41,7 @@ public class Level0 extends Grid {
 		}
 		//left line cells
 		for (int y = 1; y < SIZE-1; y++) {
-			g()[0][y].setAround(g()[0][y-1],g()[0][y+1], wallCell ,g()[1][y]);
+			g()[0][y].setAround(g()[0][y-1],g()[0][y+1], wallCell,g()[1][y]);
 		}
 		//right line cells
 		for (int y = 1; y < SIZE-1; y++) {
@@ -69,11 +69,11 @@ public class Level0 extends Grid {
 		return MAX_MOVES;
 	}
 	
-	private class Level1State extends GameState {
+	private static class Level0State extends GameState {
 		private long requiredScore;
 		private long maxMoves;
 		
-		public Level1State(long requiredScore, int maxMoves) {
+		public Level0State(long requiredScore, int maxMoves) {
 			this.requiredScore = requiredScore;
 			this.maxMoves = maxMoves;
 		}
@@ -85,6 +85,10 @@ public class Level0 extends Grid {
 		public boolean playerWon() {
 			return getScore() > requiredScore;
 		}
+	}
+
+	public Element generateCandy(CandyColor color){
+		return new Candy(color);
 	}
 
 }
