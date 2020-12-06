@@ -10,13 +10,12 @@ public class CandyGame implements GameListener {
 	public static CandyGame instance = new CandyGame();
 
 	private LevelBase level = new Level0();
-	private GameState state;
 	
 	private CandyGame() {
 	}
 	
 	public void initGame() {
-		state = level.createState();
+		level.createState();
 		level.initialize();
 		addGameListener(this);
 	}
@@ -28,6 +27,7 @@ public class CandyGame implements GameListener {
 	public void setLevel(LevelBase level){
 		this.level = level;
 		initGame();
+		GameApp.frame.updateScorePanel();
 		GameApp.frame.addClickListenerToCurrentLevel();
 		level.wasUpdated();
 	}
@@ -48,26 +48,21 @@ public class CandyGame implements GameListener {
 		level.addListener(listener);
 	}
 	
-	public long getScore() {
-		return state.getScore();
-	}
-	
 	public boolean isFinished() {
-		return state.gameOver();
+		return level.state().gameOver();
 	}
 
-	//Retorno la cantidad de pasos que quedan segun el nivel
-	public int stepsLeft(){
-		return level.getMaxMoves() - state.getMoves();
+	public String getDisplayString(){
+		return level.getDisplayString();
 	}
 	
 	public boolean playerWon() {
-		return state.playerWon();
+		return level.state().playerWon();
 	}
 	
 	@Override
 	public void cellExplosion(Element e) {
-		state.addScore(e.getScore());
+		level.state().addScore(e.getScore());
 	}
 	
 	@Override

@@ -3,9 +3,14 @@ package game.backend.level;
 import game.backend.GameState;
 import game.backend.element.*;
 
-public class Level4 extends Level0 {
+public class Level4 extends LevelBase {
 
     private static final float timeBonusCandyChance = 0.05f;
+
+    @Override
+    public String getDisplayString() {
+        return "TODO: LEVEL 4 SCORES";
+    }
 
     @Override
     protected GameState newState() {
@@ -25,7 +30,6 @@ public class Level4 extends Level0 {
     }
 
     private static class Level4State extends GameState {
-
 
         public Level4State() {
         }
