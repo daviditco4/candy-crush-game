@@ -55,9 +55,7 @@ public class Cell {
 			content.onDestroyed();
 			Direction[] explosionCascade = content.explode();
 			levelBase.cellExplosion(content);
-			this.content = new Nothing();
 			if (explosionCascade != null) {
-				content.onSpecialDestroyed();
 				expandExplosion(explosionCascade); 
 			}
 			this.content = new Nothing();
@@ -71,6 +69,7 @@ public class Cell {
 	}
 	
 	private void explode(Direction d) {
+		content.onSpecialDestroyed();
 		clearContent();
 		if (this.around[d.ordinal()] != null)
 			this.around[d.ordinal()].explode(d);
