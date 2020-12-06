@@ -26,10 +26,13 @@ public class CandyGame implements GameListener {
 
 	public void setLevel(LevelBase level){
 		this.level = level;
+		resetLevel();
+		GameApp.frame.addClickListenerToCurrentLevel();
+	}
+
+	public void resetLevel(){
 		initGame();
 		GameApp.frame.updateScorePanel();
-		GameApp.frame.addClickListenerToCurrentLevel();
-		level.wasUpdated();
 	}
 
 	public int getSize() {
@@ -56,11 +59,11 @@ public class CandyGame implements GameListener {
 		return level.getDisplayMessage();
 	}
 	
-	private boolean playerWon() {
+	public boolean playerWon() {
 		return level.state().playerWon();
 	}
 
-	public String getFinalMessage(){
+	public String getFinalMessageBody(){
 		if(playerWon()){
 			return level.getVictoryMessage();
 		}

@@ -22,6 +22,8 @@ public abstract class Element {
 
 	public void onDestroyed() {}
 
+	public void onSpecialDestroyed(){}
+
 	public long getScore() {
 		return 0;
 	}

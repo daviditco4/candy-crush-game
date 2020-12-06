@@ -10,6 +10,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +22,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -76,10 +79,20 @@ public class CandyFrame extends VBox {
 		}, 0, 1000);
 	}
 
+	boolean alertPoppedUp = false;
 	public void updateScorePanel(){
 		String message = game.getDisplayString();
-		if (game.isGameFinished()) {
-			message = game.getFinalMessage();
+		if (game.isGameFinished() && !alertPoppedUp) {
+			alertPoppedUp = true;
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			alert.setTitle(game.playerWon()?"Has Ganado!":"Has Perdido");
+			alert.setHeaderText("Jugar de nuevo?");
+			alert.setContentText(game.getFinalMessageBody());
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.isPresent() && result.get() == ButtonType.OK) {
+				CandyGame.instance.resetLevel();
+				alertPoppedUp = false;
+			}
 		}
 		scorePanel.updateScore(message);
 	}
