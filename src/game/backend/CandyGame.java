@@ -5,14 +5,14 @@ import game.backend.element.Element;
 import game.backend.level.Level0;
 import game.backend.level.Level1;
 
-public class CandyGame implements GameListener{
-	
-	private Level0 level;
+public class CandyGame implements GameListener {
+	public static CandyGame instance = new CandyGame();
+
+	private Level0 level = new Level1();
 	private Grid grid;
 	private GameState state;
 	
-	public CandyGame(Level0 level) {
-		this.level = level;
+	private CandyGame() {
 	}
 	
 	public void initGame() {
@@ -66,9 +66,6 @@ public class CandyGame implements GameListener{
 	
 	@Override
 	public void gridUpdated() {
-		//
+
 	}
-
-
-
 }

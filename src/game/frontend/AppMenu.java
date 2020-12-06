@@ -1,5 +1,6 @@
 package game.frontend;
 
+import game.backend.level.Level0;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 
@@ -11,16 +12,12 @@ public class AppMenu extends MenuBar {
         Menu file = new Menu("Archivo");
         MenuItem exitMenuItem = new MenuItem("Salir");
         exitMenuItem.setOnAction(event -> {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Salir");
-            alert.setHeaderText("Salir de la aplicación");
-            alert.setContentText("¿Está seguro que desea salir de la aplicación?");
-            Optional<ButtonType> result = alert.showAndWait();
-            if(result.isPresent()) {
-                if (result.get() == ButtonType.OK) {
-                    Platform.exit();
-                }
-            }
+            requestConfirmationAndThen(
+                    "Salir",
+                    "Salir de la aplicación",
+                    "¿Está seguro que desea salir de la aplicación?",
+                    () -> Platform.exit()
+            );
         });
         file.getItems().add(exitMenuItem);
 
@@ -38,6 +35,14 @@ public class AppMenu extends MenuBar {
 
         Menu levels = new Menu("Niveles");
         MenuItem level0 = new MenuItem("Estándar");
+        level0.setOnAction(event -> {
+            requestConfirmationAndThen(
+                    "Cambiar de nivel",
+                    "Cambiar al nivel Estándar",
+                    "¿Está seguro que desea salir del nivel actual?",
+                    () -> System.out.println("Not implemented")
+            );
+        });
         MenuItem level1 = new MenuItem("Golden Board");
         MenuItem level2 = new MenuItem("Wall Blast");
         MenuItem level4 = new MenuItem("Time Limit");
@@ -48,4 +53,14 @@ public class AppMenu extends MenuBar {
         getMenus().addAll(file, help, levels);
     }
 
+    void requestConfirmationAndThen(String title, String headerText, String contentText, Runnable then) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            then.run();
+        }
+    }
 }
