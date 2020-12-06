@@ -16,7 +16,7 @@ public class Level0 extends Grid {
 
 	@Override
 	protected GameState newState() {
-		return new Level1State(REQUIRED_SCORE, MAX_MOVES);
+		return new Level0State(REQUIRED_SCORE, MAX_MOVES);
 	}
 
 	@Override
@@ -69,11 +69,11 @@ public class Level0 extends Grid {
 		return MAX_MOVES;
 	}
 	
-	private static class Level1State extends GameState {
+	private static class Level0State extends GameState {
 		private long requiredScore;
 		private long maxMoves;
 		
-		public Level1State(long requiredScore, int maxMoves) {
+		public Level0State(long requiredScore, int maxMoves) {
 			this.requiredScore = requiredScore;
 			this.maxMoves = maxMoves;
 		}
