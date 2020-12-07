@@ -15,15 +15,14 @@ public class Level0 extends LevelBase {
 
 	@Override
 	public String getDisplayMessage() {
-		return (state().getScore()) + "                   " + stepsLeft() + " moves remaining";
+		return "Puntaje: " + state().getScore() + " Movimientos Restantes: " + state().getMoves();
 	}
 
 	public String getVictoryMessage(){
-		return "Buena esa capo";
+		return "Enorabuena! Ganaste en "+(MAX_MOVES - state().getMoves())+" movimientos!";
 	}
-
 	public String getLosingMessage(){
-		return "Alpiste perdiste no hay nadie peor que vos";
+		return "Perdiste! Puntaje final: " + state().getScore()+ ". Te faltaron " + (REQUIRED_SCORE - state().getScore());
 	}
 
 	//Retorno la cantidad de pasos que quedan segun el nivel

@@ -33,6 +33,7 @@ public class CandyGame implements GameListener {
 	public void resetLevel(){
 		initGame();
 		GameApp.frame.updateScorePanel();
+		level.firstMoveDone = false;
 		level.wasUpdated();
 	}
 

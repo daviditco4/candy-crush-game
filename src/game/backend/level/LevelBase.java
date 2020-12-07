@@ -177,7 +177,6 @@ public abstract class LevelBase {
 				gl.gridUpdated();
 			}
 		}
-		firstMoveDone = false;
 	}
 	
 	public void cellExplosion(Element e) {

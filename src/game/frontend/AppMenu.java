@@ -20,7 +20,7 @@ public class AppMenu extends MenuBar {
                     "Salir",
                     "Salir de la aplicación",
                     "¿Está seguro que desea salir de la aplicación?",
-                    () -> Platform.exit()
+                    Platform::exit
             );
         });
         file.getItems().add(exitMenuItem);
@@ -38,34 +38,10 @@ public class AppMenu extends MenuBar {
         help.getItems().add(aboutMenuItem);
 
         Menu levels = new Menu("Niveles");
-        MenuItem level0 = new MenuItem("Estándar");
-        level0.setOnAction(event -> requestConfirmationAndThen(
-                "Cambiar de nivel",
-                "Cambiar al nivel Estándar",
-                "¿Está seguro que desea salir del nivel actual?",
-                () -> CandyGame.instance.setLevel(new Level0())
-        ));
-        MenuItem level1 = new MenuItem("Golden Board");
-        level1.setOnAction(event -> requestConfirmationAndThen(
-                "Cambiar de nivel",
-                "Cambiar al nivel Golden Board",
-                "¿Está seguro que desea salir del nivel actual?",
-                () -> CandyGame.instance.setLevel(new Level1())
-        ));
-        MenuItem level2 = new MenuItem("Wall Blast");
-        level2.setOnAction(event -> requestConfirmationAndThen(
-                "Cambiar de nivel",
-                "Cambiar al nivel Golden Board",
-                "¿Está seguro que desea salir del nivel actual?",
-                () -> CandyGame.instance.setLevel(new Level2())
-        ));
-        MenuItem level4 = new MenuItem("Time Limit");
-        level4.setOnAction(event -> requestConfirmationAndThen(
-                "Cambiar de nivel",
-                "Cambiar al nivel Golden Board",
-                "¿Está seguro que desea salir del nivel actual?",
-                () -> CandyGame.instance.setLevel(new Level4())
-        ));
+        MenuItem level0 = new LevelSelectMenuItem("Estándar", () -> CandyGame.instance.setLevel(new Level0()));
+        MenuItem level1 = new LevelSelectMenuItem("Golden Board", () -> CandyGame.instance.setLevel(new Level1()));
+        MenuItem level2 = new LevelSelectMenuItem("Wall Blast", () -> CandyGame.instance.setLevel(new Level2()));
+        MenuItem level4 = new LevelSelectMenuItem("Time Limit", () -> CandyGame.instance.setLevel(new Level4()));
         levels.getItems().add(level0);
         levels.getItems().add(level1);
         levels.getItems().add(level2);
@@ -73,7 +49,7 @@ public class AppMenu extends MenuBar {
         getMenus().addAll(file, help, levels);
     }
 
-    void requestConfirmationAndThen(String title, String headerText, String contentText, Runnable then) {
+    static void requestConfirmationAndThen(String title, String headerText, String contentText, Runnable then) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
@@ -81,6 +57,20 @@ public class AppMenu extends MenuBar {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             then.run();
+        }
+    }
+
+    public static class LevelSelectMenuItem extends MenuItem{
+
+        public LevelSelectMenuItem(String name, Runnable then) {
+            super(name);
+            setOnAction(event -> requestConfirmationAndThen(
+                    "Cambiar de nivel",
+                    "Cambiar al nivel "+name,
+                    "¿Está seguro que desea salir? Se perdera el progreso del nivel actual.",
+                    then
+            ));
+
         }
     }
 }
