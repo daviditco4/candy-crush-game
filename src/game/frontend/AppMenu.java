@@ -46,7 +46,7 @@ public class AppMenu extends MenuBar {
         levels.getItems().add(level1);
         levels.getItems().add(level2);
         levels.getItems().add(level4);
-        getMenus().addAll(file, help, levels);
+        getMenus().addAll(file, levels, help);
     }
 
     static void requestConfirmationAndThen(String title, String headerText, String contentText, Runnable then) {
