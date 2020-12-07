@@ -73,6 +73,7 @@ public abstract class LevelBase {
 	public void initialize() {
 		moveMaker = new MoveMaker(this);
 		figureDetector = new FigureDetector(this);
+		state = newState();
 		for (int y = 0; y < SIZE; y++) {
 			for (int x = 0; x < SIZE; x++) {
 				g[x][y] = new Cell(this);
@@ -121,9 +122,11 @@ public abstract class LevelBase {
 		Move move = moveMaker.getMove(y1, x1, y2, x2);
 		swapContent(y1, x1, y2, x2);
 		if (move.isValid()) {
+			state().addMove();
 			if (!firstMoveDone) firstMoveDone = true;
 			move.removeElements();
 			fallElements();
+			wasUpdated();
 			return true;
 		} else {
 			swapContent(y1, x1, y2, x2);

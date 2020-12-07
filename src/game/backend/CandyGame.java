@@ -15,7 +15,7 @@ public class CandyGame implements GameListener {
 	}
 	
 	public void initGame() {
-		level.createState();
+		// level.createState();
 		level.initialize();
 		addGameListener(this);
 	}

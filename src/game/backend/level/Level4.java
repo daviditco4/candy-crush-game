@@ -12,12 +12,13 @@ public class Level4 extends LevelBase {
 
     @Override
     public String getDisplayMessage() {
-        return "Puntos: " + state().getScore() + " Tiempo Restante: "+ state().getTimer();
+        return "Puntos: " + state().getScore() + " / Tiempo Restante: "+ state().getTimer();
     }
 
     public String getVictoryMessage(){
         return "Enorabuena! Ganaste en "+((Level4State)state()).getPassedTime()+" segundos!";
     }
+
     public String getLosingMessage(){
         return "Perdiste! Puntaje final: " + state().getScore()+ ". Te faltaron " + (REQUIRED_SCORE - state().getScore());
     }
@@ -27,6 +28,7 @@ public class Level4 extends LevelBase {
         return new Level4State(REQUIRED_SCORE, STARTING_TIME);
     }
 
+    /*
     @Override
     public boolean tryMove(int y1, int x1, int y2, int x2) {
         boolean ret;
@@ -36,6 +38,7 @@ public class Level4 extends LevelBase {
         }
         return ret;
     }
+    */
 
     @Override
     public void updateFixedTime() {
@@ -70,7 +73,7 @@ public class Level4 extends LevelBase {
             return getTimer() <= 0;
         }
         @Override
-        public boolean playerWon() { return getScore() > requiredScore; }
+        public boolean playerWon() { return getScore() >= requiredScore; }
         @Override
         public void updateTimer() {
             super.updateTimer();

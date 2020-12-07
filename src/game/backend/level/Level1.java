@@ -11,11 +11,11 @@ public class Level1 extends LevelBase {
 
     @Override
     public String getDisplayMessage() {
-        return "Celdas Restantes: " + getRemainingCells() + " Movimientos Restantes: " + stepsLeft();
+        return "Celdas Restantes: " + getRemainingCells() + " / Movimientos Restantes: " + stepsLeft();
     }
 
     public String getVictoryMessage(){
-        return "Enorabuena! Ganaste en "+(MAX_MOVES - state().getMoves())+" movimientos!";
+        return "Enhorabuena! Ganaste en "+ state().getMoves() + " movimientos!";
     }
     public String getLosingMessage(){
         return "Perdiste! Te faltaron " + getRemainingCells() + " celdas";

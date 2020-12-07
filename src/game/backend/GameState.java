@@ -2,9 +2,9 @@ package game.backend;
 
 public abstract class GameState {
 	
-	private long score = 0;
-	private int moves = 0;
-	private int timer = 0;
+	private long score;
+	private int moves;
+	private int timer;
 	
 	public void addScore(long value) {
 		this.score += value;

@@ -11,16 +11,17 @@ import game.backend.element.Wall;
 public class Level0 extends LevelBase {
 	
 	private static final int REQUIRED_SCORE = 5000;
-	private static final int MAX_MOVES = 20;
+	private static final int MAX_MOVES = 5;
 
 	@Override
 	public String getDisplayMessage() {
-		return "Puntaje: " + state().getScore() + " Movimientos Restantes: " + stepsLeft();
+		return "Puntaje: " + state().getScore() + " / Movimientos Restantes: " + stepsLeft();
 	}
 
 	public String getVictoryMessage(){
-		return "Enorabuena! Ganaste en "+(MAX_MOVES - state().getMoves())+" movimientos!";
+		return "Enorabuena! Ganaste en "+ state().getMoves() +" movimientos!";
 	}
+
 	public String getLosingMessage(){
 		return "Perdiste! Puntaje final: " + state().getScore()+ ". Te faltaron " + (REQUIRED_SCORE - state().getScore());
 	}
@@ -33,16 +34,6 @@ public class Level0 extends LevelBase {
 	@Override
 	protected GameState newState() {
 		return new Level0State(REQUIRED_SCORE, MAX_MOVES);
-	}
-	
-	@Override
-	public boolean tryMove(int y1, int x1, int y2, int x2) {
-		boolean ret;
-		if (ret = super.tryMove(y1, x1, y2, x2)) {
-			state().addMove();
-			wasUpdated();
-		}
-		return ret;
 	}
 	
 	private static class Level0State extends GameState {

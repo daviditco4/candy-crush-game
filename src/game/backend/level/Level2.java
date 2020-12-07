@@ -21,12 +21,13 @@ public class Level2 extends LevelBase {
 
     @Override
     public String getDisplayMessage() {
-        return "Celdas Restantes: " + getRemainingCells() + " Movimientos Restantes: " + stepsLeft();
+        return "Celdas Restantes: " + getRemainingCells() + " / Movimientos Restantes: " + stepsLeft();
     }
 
     public String getVictoryMessage(){
-        return "Enorabuena! Ganaste en "+(MAX_MOVES - state().getMoves())+" movimientos!";
+        return "Enhorabuena! Ganaste en "+ state().getMoves() +" movimientos!";
     }
+
     public String getLosingMessage(){
         return "Perdiste! Te faltaron " + getRemainingCells() + " celdas";
     }
@@ -50,16 +51,6 @@ public class Level2 extends LevelBase {
                 wallCells.add(auxCell);
             }
         }
-    }
-
-    @Override
-    public boolean tryMove(int y1, int x1, int y2, int x2) {
-        boolean ret;
-        if (ret = super.tryMove(y1, x1, y2, x2)) {
-            state().addMove();
-            wasUpdated();
-        }
-        return ret;
     }
 
     public void clearCell(Cell cell){
