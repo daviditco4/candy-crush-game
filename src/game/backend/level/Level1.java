@@ -67,12 +67,12 @@ public class Level1 extends LevelBase {
             this.maxMoves = maxMoves;
         }
         @Override
-        public boolean gameOver() {
-            return playerWon() || getMoves() >= maxMoves;
-        }
-        @Override
         public boolean playerWon() {
             return getRemainingCells() == 0;
+        }
+        @Override
+        public boolean playerLost(){
+            return getMoves() >= maxMoves;
         }
     }
 

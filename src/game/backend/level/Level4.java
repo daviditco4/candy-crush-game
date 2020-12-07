@@ -69,18 +69,20 @@ public class Level4 extends LevelBase {
             this.requiredScore = requiredScore;
         }
         @Override
-        public boolean gameOver() {
-            return getTimer() <= 0;
-        }
-        @Override
-        public boolean playerWon() { return getScore() >= requiredScore; }
-        @Override
         public void updateTimer() {
             super.updateTimer();
             passedTime++;
         }
         public int getPassedTime (){
             return passedTime;
+        }
+        @Override
+        public boolean playerWon() {
+            return getScore() >= requiredScore;
+        }
+        @Override
+        public boolean playerLost(){
+            return getTimer() <= 0;
         }
 
     }

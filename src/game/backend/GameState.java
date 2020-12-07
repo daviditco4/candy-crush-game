@@ -30,7 +30,11 @@ public abstract class GameState {
 
 	public void increaseTimer (int time) {timer += time;}
 
-	public abstract boolean gameOver();
+	public boolean gameOver(){
+		return playerWon() || playerLost();
+	}
 	
 	public abstract boolean playerWon();
+
+	public abstract boolean playerLost();
 }

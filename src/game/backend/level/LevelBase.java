@@ -165,11 +165,6 @@ public abstract class LevelBase {
 		wasUpdated();
 	}
 	
-	public GameState createState() {
-		this.state = newState();
-		return this.state;
-	}
-	
 	public void addListener(GameListener listener) {
 		listeners.add(listener);
 	}

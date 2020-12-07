@@ -81,7 +81,6 @@ public class CandyFrame extends VBox {
 
 	boolean alertPoppedUp = false;
 	public void updateScorePanel(){
-		String message = game.getDisplayString();
 		if (game.isGameFinished() && !alertPoppedUp) {
 			alertPoppedUp = true;
 			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -94,6 +93,7 @@ public class CandyFrame extends VBox {
 				alertPoppedUp = false;
 			}
 		}
+		String message = game.getDisplayString();
 		scorePanel.updateScore(message);
 	}
 

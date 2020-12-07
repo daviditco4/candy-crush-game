@@ -15,7 +15,6 @@ public class CandyGame implements GameListener {
 	}
 	
 	public void initGame() {
-		// level.createState();
 		level.initialize();
 		addGameListener(this);
 	}
@@ -52,9 +51,9 @@ public class CandyGame implements GameListener {
 	public void addGameListener(GameListener listener) {
 		level.addListener(listener);
 	}
-	
-	public boolean isGameFinished() {
-		return level.state().gameOver() || level.state().playerWon();
+
+	public boolean isGameFinished(){
+		return level.state().gameOver();
 	}
 
 	public String getDisplayString(){
