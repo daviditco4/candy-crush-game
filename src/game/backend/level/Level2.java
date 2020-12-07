@@ -21,7 +21,7 @@ public class Level2 extends LevelBase {
 
     @Override
     public String getDisplayMessage() {
-        return "Celdas Restantes: " + getRemainingCells() + " Movimientos Restantes: " + state().getMoves();
+        return "Celdas Restantes: " + getRemainingCells() + " Movimientos Restantes: " + (MAX_MOVES - state().getMoves());
     }
 
     public String getVictoryMessage(){
