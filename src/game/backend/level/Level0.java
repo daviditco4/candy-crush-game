@@ -5,7 +5,7 @@ import game.backend.GameState;
 public class Level0 extends LevelBase {
 	
 	private static final int REQUIRED_SCORE = 5000;
-	private static final int MAX_MOVES = 5;
+	private static final int MAX_MOVES = 20;
 
 	@Override
 	public String getDisplayMessage() {

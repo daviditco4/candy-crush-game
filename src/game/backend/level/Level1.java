@@ -10,6 +10,12 @@ public class Level1 extends LevelBase {
     private static final int MAX_MOVES = 20;
 
     @Override
+    public void initialize(){
+        super.initialize();
+        acum = 0;
+    }
+
+    @Override
     public String getDisplayMessage() {
         return "Celdas Restantes: " + getRemainingCells() + " / Movimientos Restantes: " + stepsLeft();
     }

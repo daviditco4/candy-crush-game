@@ -73,7 +73,6 @@ public abstract class LevelBase {
 	public void initialize() {
 		moveMaker = new MoveMaker(this);
 		figureDetector = new FigureDetector(this);
-		state = newState();
 		for (int y = 0; y < SIZE; y++) {
 			for (int x = 0; x < SIZE; x++) {
 				g[x][y] = new Cell(this);
@@ -82,6 +81,7 @@ public abstract class LevelBase {
 		}
 		fillCells();
 		fallElements();
+		state = newState();
 	}
 
 	public Element get(int y, int x) {

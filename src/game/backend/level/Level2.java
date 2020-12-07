@@ -10,12 +10,13 @@ import java.util.Set;
 public class Level2 extends LevelBase {
 
     private static Color cellColor = Color.SANDYBROWN;
-    private Set<Cell> wallCells = new HashSet<>();
+    private Set<Cell> wallCells;
     private static final int MAX_MOVES = 40;
 
     @Override
     public void initialize(){
         super.initialize();
+        wallCells = new HashSet<>();
         colorCenterCells();
     }
 
