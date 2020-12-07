@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 public class Level1 extends LevelBase {
 
     private int acum;
-    private static final int MAX_MOVES = 2000;
+    private static final int MAX_MOVES = 20;
 
     @Override
     public String getDisplayMessage() {

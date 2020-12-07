@@ -1,5 +1,7 @@
 package game.backend.cell;
 
+import game.backend.CandyGame;
+import game.backend.level.Level2;
 import game.backend.level.LevelBase;
 import game.backend.element.Element;
 import game.backend.element.Nothing;
@@ -57,9 +59,8 @@ public class Cell {
 			levelBase.cellExplosion(content);
 			this.content = new Nothing();
 			if (explosionCascade != null) {
-				expandExplosion(explosionCascade); 
+				expandExplosion(explosionCascade);
 			}
-			this.content = new Nothing();
 		}
 	}
 	
@@ -70,6 +71,7 @@ public class Cell {
 	}
 	
 	private void explode(Direction d) {
+		onSpecialDestroyed();
 		clearContent();
 		if (this.around[d.ordinal()] != null)
 			this.around[d.ordinal()].explode(d);
@@ -103,6 +105,12 @@ public class Cell {
 			}
 		}
 		return false;
+	}
+
+	public void onSpecialDestroyed(){
+		if(CandyGame.instance.level() instanceof Level2){
+			((Level2)CandyGame.instance.level()).clearCell(this);
+		}
 	}
 	
 	public void setContent(Element content) {
