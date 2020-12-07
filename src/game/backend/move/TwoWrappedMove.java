@@ -19,11 +19,19 @@ public class TwoWrappedMove extends Move {
 				currY = y2;
 				currX = x2;
 			}
-			clearContent(currY,currX-1);
-			clearContent(currY, currX + 2);
+			if (currX > 0) clearContent(currY,currX-1);
+			if (currX < LevelBase.SIZE - 2) clearContent(currY, currX + 2);
 			for(int n = -1; n < 3; n++) {
-				clearContent(currY - 1, currX + n);
-				clearContent(currY + 1, currX + n);
+				if (currY > 0) {
+					if (n == -1 && currX <= 0) break;
+					if (n == 2 && currX >= LevelBase.SIZE - 2) break;
+					clearContent(currY - 1, currX + n);
+				}
+				if (currY < LevelBase.SIZE - 1) {
+					if (n == -1 && currX <= 0) break;
+					if (n == 2 && currX >= LevelBase.SIZE - 2) break;
+					clearContent(currY - 1, currX + n);
+				}
 			}
 		} else {
 			if (y1 < y2) {
@@ -33,11 +41,19 @@ public class TwoWrappedMove extends Move {
 				currY = y2;
 				currX = x2;
 			}
-			clearContent(currY,currX-1);
-			clearContent(currY,currX+2);
+			if (currY > 0) clearContent(currY-1, currX);
+			if (currY < LevelBase.SIZE - 2) clearContent(currY+2,currX);
 			for(int n = -1; n < 3; n++) {
-				clearContent(currY - 1, currX + n);
-				clearContent(currY + 1, currX + n);
+				if (currX > 0) {
+					if (n == -1 && currY <= 0) break;
+					if (n == 2 && currY >= LevelBase.SIZE - 2) break;
+					clearContent(currY + n, currX - 1);
+				}
+				if (currX < LevelBase.SIZE - 1) {
+					if (n == -1 && currY <= 0) break;
+					if (n == 2 && currY >= LevelBase.SIZE - 2) break;
+					clearContent(currY + n, currX + 1);
+				}
 			}
 		}
 	}
