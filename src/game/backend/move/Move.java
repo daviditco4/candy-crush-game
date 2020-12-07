@@ -33,9 +33,9 @@ public abstract class Move {
 	protected Element get(int y, int x) {
 		return levelBase.get(y, x);
 	}
-	
+
 	protected void clearContent(int y, int x) {
-		levelBase.clearContent(y, x);
+		levelBase.clearContentSpecial(y, x);
 	}
 	
 	protected void setContent(int y, int x, Element e){

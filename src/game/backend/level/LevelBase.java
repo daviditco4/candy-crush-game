@@ -107,6 +107,11 @@ public abstract class LevelBase {
 	public void clearContent(int y, int x) {
 		g[x][y].clearContent();
 	}
+
+	public void clearContentSpecial(int y, int x) {
+		clearContent(y,x);
+		g[x][y].onSpecialDestroyed();
+	}
 	
 	public void setContent(int y, int x, Element e) {
 		g[x][y].setContent(e);
@@ -172,16 +177,13 @@ public abstract class LevelBase {
 				gl.gridUpdated();
 			}
 		}
+		firstMoveDone = false;
 	}
 	
 	public void cellExplosion(Element e) {
 		for (GameListener gl: listeners) {
 			gl.cellExplosion(e);
 		}
-	}
-
-	public MoveMaker getMoveMaker(){
-		return moveMaker;
 	}
 
 	public Element generateCandy(CandyColor color){

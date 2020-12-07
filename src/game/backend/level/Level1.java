@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 public class Level1 extends LevelBase {
 
     private int acum;
+    private static Color cellColor = Color.YELLOW;
     private static final int MAX_MOVES = 20;
 
     @Override
@@ -32,14 +33,14 @@ public class Level1 extends LevelBase {
             if(y1 == y2){
                 for(int x=0 ; x < SIZE ; x++){
                     if(getCell(y1, x).getColor() == null){
-                        getCell(y1, x).setColor(Color.YELLOW);
+                        getCell(y1, x).setColor(cellColor);
                         acum++;
                     }
                 }
             } else {
                 for(int y=0 ; y < SIZE ; y++){
                     if(getCell(y, x1).getColor() == null){
-                        getCell(y, x1).setColor(Color.YELLOW);
+                        getCell(y, x1).setColor(cellColor);
                         acum++;
                     }
                 }

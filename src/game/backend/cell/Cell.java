@@ -59,6 +59,7 @@ public class Cell {
 			levelBase.cellExplosion(content);
 			this.content = new Nothing();
 			if (explosionCascade != null) {
+				onSpecialDestroyed();
 				expandExplosion(explosionCascade);
 			}
 		}

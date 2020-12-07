@@ -1,38 +1,65 @@
 package game.backend.level;
 
+import game.backend.GameState;
 import game.backend.cell.Cell;
-import game.backend.element.Nothing;
-import game.backend.move.Move;
 import javafx.scene.paint.Color;
 
-import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Level2 extends Level1 {
+public class Level2 extends LevelBase {
 
-    private int acum;
-    private static int blastSize = 9;
-    private static Color blastColor = Color.SANDYBROWN;
-    private int first = LevelBase.SIZE/2 - 1;
-    private int last = LevelBase.SIZE/2 + 1;
-    private Set<Cell> wallCells;
+    private static Color cellColor = Color.SANDYBROWN;
+    private Set<Cell> wallCells = new HashSet<>();
+    private static final int MAX_MOVES = 40;
 
     @Override
     public void initialize(){
         super.initialize();
-        wallCells = new HashSet<>();
         colorCenterCells();
     }
 
+    @Override
+    public String getDisplayMessage() {
+        return (state().getScore()) + " " + stepsLeft() + " remaining moves\t" + getRemainingCells() + " cells remaining";
+    }
+
+    public String getVictoryMessage(){
+        return "Buena esa capo";
+    }
+    public String getLosingMessage(){
+        return "Alpiste perdiste no hay nadie peor que vos";
+    }
+
+    @Override
+    protected GameState newState() {
+        return new Level2State(MAX_MOVES);
+    }
+
+    private int stepsLeft(){
+        return MAX_MOVES - state().getMoves();
+    }
+
     private void colorCenterCells(){
-        for(int x=first ; x <= last ; x++){
-            for(int y=first ; y <= last ; y++){
+        int first = LevelBase.SIZE / 2 - 1;
+        int last = LevelBase.SIZE / 2 + 1;
+        for(int x = first; x <= last; x++){
+            for(int y = first; y <= last; y++){
                 Cell auxCell = getCell(y, x);
-                auxCell.setColor(blastColor);
+                auxCell.setColor(cellColor);
                 wallCells.add(auxCell);
             }
         }
+    }
+
+    @Override
+    public boolean tryMove(int y1, int x1, int y2, int x2) {
+        boolean ret;
+        if (ret = super.tryMove(y1, x1, y2, x2)) {
+            state().addMove();
+            wasUpdated();
+        }
+        return ret;
     }
 
     public void clearCell(Cell cell){
@@ -40,33 +67,23 @@ public class Level2 extends Level1 {
         wallCells.remove(cell);
     }
 
-    /*
-    private void clearBlast(){
-        for(int x=first ; x <= last ; x++){
-            for(int y=first ; y <= last ; y++){
-                if(getCell(y, x).getContent() instanceof Nothing){
-                    clearCell(y, x);
-                }
-            }
+    public int getRemainingCells(){
+        return wallCells.size();
+    }
+
+    private class Level2State extends GameState {
+        private long maxMoves;
+
+        public Level2State(int maxMoves) {
+            this.maxMoves = maxMoves;
+        }
+        @Override
+        public boolean gameOver() {
+            return playerWon() || getMoves() >= maxMoves;
+        }
+        @Override
+        public boolean playerWon() {
+            return getRemainingCells() == 0;
         }
     }
-    */
-
-//    @Override
-//    public boolean tryMove(int y1, int x1, int y2, int x2) {
-//        Move move = getMoveMaker().getMove(y1, x1, y2, x2);
-//        swapContent(y1, x1, y2, x2);
-//        if (move.isValid()) {
-//            if (!firstMoveDone) firstMoveDone = true;
-//            move.removeElements();
-//            clearBlast();
-//            fallElements();
-//            wasUpdated();
-//            return true;
-//        } else {
-//            swapContent(y1, x1, y2, x2);
-//            return false;
-//        }
-//    }
-
 }
