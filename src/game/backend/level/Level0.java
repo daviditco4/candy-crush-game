@@ -15,7 +15,7 @@ public class Level0 extends LevelBase {
 
 	@Override
 	public String getDisplayMessage() {
-		return "Puntaje: " + state().getScore() + " Movimientos Restantes: " + (MAX_MOVES - state().getMoves());
+		return "Puntaje: " + state().getScore() + " Movimientos Restantes: " + stepsLeft();
 	}
 
 	public String getVictoryMessage(){
