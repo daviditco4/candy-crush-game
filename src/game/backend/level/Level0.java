@@ -1,12 +1,6 @@
 package game.backend.level;
 
 import game.backend.GameState;
-import game.backend.cell.CandyGeneratorCell;
-import game.backend.cell.Cell;
-import game.backend.element.Candy;
-import game.backend.element.CandyColor;
-import game.backend.element.Element;
-import game.backend.element.Wall;
 
 public class Level0 extends LevelBase {
 	
@@ -18,10 +12,12 @@ public class Level0 extends LevelBase {
 		return "Puntaje: " + state().getScore() + " / Movimientos Restantes: " + stepsLeft();
 	}
 
+	@Override
 	public String getVictoryMessage(){
 		return "Enorabuena! Ganaste en "+ state().getMoves() +" movimientos!";
 	}
 
+	@Override
 	public String getLosingMessage(){
 		return "Perdiste! Puntaje final: " + state().getScore()+ ". Te faltaron " + (REQUIRED_SCORE - state().getScore());
 	}
@@ -38,16 +34,18 @@ public class Level0 extends LevelBase {
 	
 	private static class Level0State extends GameState {
 		private long requiredScore;
-		private long maxMoves;
+		private int maxMoves;
 		
 		public Level0State(long requiredScore, int maxMoves) {
 			this.requiredScore = requiredScore;
 			this.maxMoves = maxMoves;
 		}
+
 		@Override
 		public boolean playerWon() {
 			return getScore() > requiredScore;
 		}
+
 		@Override
 		public boolean playerLost(){
 			return getMoves() >= maxMoves;

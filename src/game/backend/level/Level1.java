@@ -14,9 +14,12 @@ public class Level1 extends LevelBase {
         return "Celdas Restantes: " + getRemainingCells() + " / Movimientos Restantes: " + stepsLeft();
     }
 
+    @Override
     public String getVictoryMessage(){
         return "Enhorabuena! Ganaste en "+ state().getMoves() + " movimientos!";
     }
+
+    @Override
     public String getLosingMessage(){
         return "Perdiste! Te faltaron " + getRemainingCells() + " celdas";
     }
@@ -29,7 +32,6 @@ public class Level1 extends LevelBase {
     @Override
     public boolean tryMove(int y1, int x1, int y2, int x2) {
         if(super.tryMove(y1, x1, y2, x2)){
-            state().addMove();
             if(y1 == y2){
                 for(int x=0 ; x < SIZE ; x++){
                     if(getCell(y1, x).getColor() == null){

@@ -24,10 +24,12 @@ public class Level2 extends LevelBase {
         return "Celdas Restantes: " + getRemainingCells() + " / Movimientos Restantes: " + stepsLeft();
     }
 
+    @Override
     public String getVictoryMessage(){
         return "Enhorabuena! Ganaste en "+ state().getMoves() +" movimientos!";
     }
 
+    @Override
     public String getLosingMessage(){
         return "Perdiste! Te faltaron " + getRemainingCells() + " celdas";
     }

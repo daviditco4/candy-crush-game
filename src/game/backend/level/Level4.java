@@ -15,10 +15,12 @@ public class Level4 extends LevelBase {
         return "Puntos: " + state().getScore() + " / Tiempo Restante: "+ state().getTimer();
     }
 
+    @Override
     public String getVictoryMessage(){
         return "Enorabuena! Ganaste en "+((Level4State)state()).getPassedTime()+" segundos!";
     }
 
+    @Override
     public String getLosingMessage(){
         return "Perdiste! Puntaje final: " + state().getScore()+ ". Te faltaron " + (REQUIRED_SCORE - state().getScore());
     }

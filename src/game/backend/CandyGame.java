@@ -31,6 +31,7 @@ public class CandyGame implements GameListener {
 
 	public void resetLevel(){
 		initGame();
+		// LLama a la funcion que lo llamó?
 		GameApp.frame.updateScorePanel();
 		level.firstMoveDone = false;
 		level.wasUpdated();
