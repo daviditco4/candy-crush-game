@@ -35,9 +35,11 @@ public class CandyFrame extends VBox {
 	private ImageManager images;
 	private Point2D lastPoint;
 	private CandyGame game = CandyGame.instance;
+	private AppMenu appMenu;
 
 	public CandyFrame() {
-		getChildren().add(new AppMenu());
+		appMenu = new AppMenu();
+		getChildren().add(appMenu);
 		images = new ImageManager();
 		boardPanel = new BoardPanel(game.getSize(), game.getSize(), CELL_SIZE);
 		getChildren().add(boardPanel);
@@ -50,10 +52,10 @@ public class CandyFrame extends VBox {
 			// If game is finished clicking on cells does nothing
 			if(!game().isGameFinished()) {
 				if (lastPoint == null) {
-					lastPoint = translateCoords(event.getSceneX(), event.getSceneY());
+					lastPoint = translateCoords(event.getSceneX(), event.getSceneY() - appMenu.getHeight());
 					System.out.println("Get first = " + lastPoint);
 				} else {
-					Point2D newPoint = translateCoords(event.getSceneX(), event.getSceneY());
+					Point2D newPoint = translateCoords(event.getSceneX(), event.getSceneY() - appMenu.getHeight());
 					if (newPoint != null) {
 						System.out.println("Get second = " + newPoint);
 						game().tryMove((int) lastPoint.getY(), (int) lastPoint.getX(), (int) newPoint.getY(), (int) newPoint.getX());
