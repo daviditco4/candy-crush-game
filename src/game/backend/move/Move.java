@@ -5,7 +5,7 @@ import game.backend.element.Element;
 
 public abstract class Move {
 	
-	private LevelBase levelBase;
+	protected LevelBase levelBase;
 	protected int y1, x1, y2, x2;
 	
 	public Move(LevelBase levelBase) {

@@ -10,11 +10,9 @@ public class CandyMove extends Move {
 	private Figure f2;
 	
 	private FigureDetector detector;
-	private LevelBase levelBase;
 	
 	public CandyMove(LevelBase levelBase) {
 		super(levelBase);
-		this.levelBase = levelBase;
 	}
 	
 	@Override
