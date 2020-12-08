@@ -30,18 +30,6 @@ public class Level4 extends LevelBase {
         return new Level4State(REQUIRED_SCORE, STARTING_TIME);
     }
 
-    /*
-    @Override
-    public boolean tryMove(int y1, int x1, int y2, int x2) {
-        boolean ret;
-        if (ret = super.tryMove(y1, x1, y2, x2)) {
-            state().addMove();
-            wasUpdated();
-        }
-        return ret;
-    }
-    */
-
     @Override
     public void updateFixedTime() {
         if (firstMoveDone && !CandyGame.instance.isGameFinished()){

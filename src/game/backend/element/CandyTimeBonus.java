@@ -6,14 +6,9 @@ public class CandyTimeBonus extends Candy {
 
     private int timeBonus;
 
-    public CandyTimeBonus() {
-        this.timeBonus = 0;
-    }
+    public CandyTimeBonus() { }
 
-    public CandyTimeBonus(CandyColor color) {
-        this.timeBonus = 0;
-        setColor(color);
-    }
+    public CandyTimeBonus(CandyColor color) { setColor(color); }
 
     public CandyTimeBonus(CandyColor color, int timeBonus) {
         this.timeBonus = timeBonus;

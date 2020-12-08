@@ -17,7 +17,6 @@ import java.awt.Point;
 import java.util.*;
 
 public abstract class LevelBase {
-	
 	public static final int SIZE = 9;
 
 	private Cell[][] g = new Cell[SIZE][SIZE];
@@ -31,6 +30,7 @@ public abstract class LevelBase {
 	public abstract String getDisplayMessage();
 	protected abstract GameState newState();
 	public void updateFixedTime(){}
+
 	protected void fillCells() {
 		Cell wallCell = new Cell(this);
 		wallCell.setContent(new Wall());
