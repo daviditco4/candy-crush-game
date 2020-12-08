@@ -2,15 +2,15 @@ package game.backend.element;
 
 import game.backend.move.Direction;
 
+import java.util.Arrays;
+
 public class WrappedCandy extends Candy {
 	
-	private Direction[] explosion = new Direction[4];
+	private Direction[] explosion;
 	
 	public WrappedCandy() {
-		explosion[0] = Direction.LEFT;
-		explosion[1] = Direction.RIGHT;
-		explosion[2] = Direction.UP;
-		explosion[3] = Direction.DOWN;
+		// Como WrappedCandy explota en todas las direcciones, tomo directamente todos los values() de Direction
+		explosion = Direction.values();
 	}
 	
 	@Override
