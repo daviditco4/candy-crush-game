@@ -12,12 +12,12 @@ public class Level4 extends LevelBase {
 
     @Override
     public String getDisplayMessage() {
-        return "Puntos: " + state().getScore() + "/" + REQUIRED_SCORE + "   Tiempo Restante: "+ state().getTimer();
+        return "Puntos: " + state().getScore() + "/" + REQUIRED_SCORE + "   Tiempo Restante: "+ state().getTimer()+"s";
     }
 
     @Override
     public String getVictoryMessage(){
-        return "Enorabuena! Ganaste en "+((Level4State)state()).getPassedTime()+" segundos con " + state().getScore() + " puntos!";
+        return "Enorabuena! Ganaste en "+((Level4State)state()).getPassedTime()+" segundos!";
     }
 
     @Override

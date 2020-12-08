@@ -10,7 +10,7 @@ public class Level1 extends LevelBase {
 
     @Override
     public String getDisplayMessage() {
-        return "Celdas Oro: " + getGoldCells() + "/" + LevelBase.SIZE * LevelBase.SIZE + "  Puntaje: " + state().getScore() + "   Movimientos: " + stepsLeft() + "/" + MAX_MOVES;
+        return "Celdas Oro: " + getGoldCells() + "/" + LevelBase.SIZE * LevelBase.SIZE + "  Puntos: " + state().getScore() + "   Movimientos: " + stepsLeft() + "/" + MAX_MOVES;
     }
 
     @Override

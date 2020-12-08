@@ -20,7 +20,7 @@ public class Level2 extends LevelBase {
 
     @Override
     public String getDisplayMessage() {
-        return "Celdas Pared: " + getRemainingCells() + "   Puntaje: " + state().getScore() + "   Movimientos: " + stepsLeft() + "/" + MAX_MOVES;
+        return "Celdas Pared: " + getRemainingCells() + "   Puntos: " + state().getScore() + "   Movimientos: " + stepsLeft() + "/" + MAX_MOVES;
     }
 
     @Override
