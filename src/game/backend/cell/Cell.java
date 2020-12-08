@@ -91,12 +91,6 @@ public class Cell {
 		Cell up = around[Direction.UP.ordinal()];
 		if (this.isEmpty() && !up.isEmpty() && up.isMovable()) {
 			this.content = up.getAndClearContent();
-			/* This just updates the grid view, but there´s no point in updating
-			*  the view every single time a candy is moved. Added wasUpdated() to tryMove() on
-			*  both Level1 and Level2 (subject to future change)
-			*
-			*  grid.wasUpdated();
-			*/
 			if (this.hasFloor()) {
 				levelBase.tryRemove(this);
 				return true;
