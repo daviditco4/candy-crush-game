@@ -26,13 +26,8 @@ public class CandyTimeBonus extends Candy {
     }
 
     @Override
-    public String getFullKey() {
-        return getColor().toString() + "-TIME-CANDY";
-    }
-
-    @Override
     public String getKey() {
-        return "TIME-CANDY";
+        return getColor().toString() + "-TIME-CANDY";
     }
 
 }

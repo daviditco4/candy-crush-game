@@ -40,13 +40,8 @@ public class Candy extends Element {
 	}
 	
 	@Override
-	public String getFullKey() {
-		return color.toString() + "-CANDY";
-	}
-	
-	@Override
 	public String getKey() {
-		return "CANDY";
+		return color.toString() + "-CANDY";
 	}
 	
 	@Override

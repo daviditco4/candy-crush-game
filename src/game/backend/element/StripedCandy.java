@@ -26,11 +26,6 @@ public class StripedCandy extends Candy {
     }
 
     @Override
-    public String getFullKey() {
-        return orientation.key+"-STRIPED-" + super.getFullKey();
-    }
-
-    @Override
     public Direction[] explode() {
         return orientation.explosion;
     }

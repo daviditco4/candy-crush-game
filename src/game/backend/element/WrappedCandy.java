@@ -12,15 +12,10 @@ public class WrappedCandy extends Candy {
 		explosion[2] = Direction.UP;
 		explosion[3] = Direction.DOWN;
 	}
-
+	
 	@Override
 	public String getKey() {
 		return "WRAPPED-" + super.getKey();
-	}
-	
-	@Override
-	public String getFullKey() {
-		return "WRAPPED-" + super.getFullKey();
 	}
 	
 	@Override
