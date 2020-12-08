@@ -9,6 +9,9 @@ import java.util.Map;
 public class MoveMaker {
 
 	private Map<String, Move> map;
+	private Map<Class<? extends Element>, Integer> ElementIDMap;
+	private Map<Integer, Move> specialMoveFlagMap;
+	private static Move defaultMove;
 	private LevelBase levelBase;
 	
 	public MoveMaker(LevelBase levelBase) {
@@ -16,53 +19,53 @@ public class MoveMaker {
 		initMap();
 	}
 
+	//Commutative pairing function found in http://benpaulthurstonblog.blogspot.com/2015/12/possible-commutative-pairing-function.html
+	private int getKey (Class<? extends Element> candy1, Class<? extends Element> candy2){
+		int a = ElementIDMap.get(ElementIDMap.containsKey(candy1)?candy1:candy1.getSuperclass());
+		int b = ElementIDMap.get(ElementIDMap.containsKey(candy2)?candy2:candy2.getSuperclass());
+		return (int)Math.pow(a, 2) + (int)Math.pow(b, 2) + a*b + a + b;
+	}
+	private int getKey (Element candy1, Element candy2){
+		return getKey(candy1.getClass(), candy2.getClass());
+	}
+
+	@SafeVarargs
+	private final void addCandiesToMap(Class<? extends Element> ... elements){
+		int index = 1;
+		for (Class<? extends Element> element : elements){
+			ElementIDMap.put(element, index++);
+		}
+	}
+
 	private void initMap(){
-		map = new HashMap<>();
-		map.put(new Candy().getKey() + new Candy().getKey(), new CandyMove(levelBase));
-		map.put(new Candy().getKey() + new HorizontalStripedCandy().getKey(), new CandyMove(levelBase));
-		map.put(new Candy().getKey() + new VerticalStripedCandy().getKey(), new CandyMove(levelBase));
-		map.put(new Candy().getKey() + new WrappedCandy().getKey(), new CandyMove(levelBase));
-		map.put(new Candy().getKey() + new Bomb().getKey(), new BombMove(levelBase));
-		map.put(new Candy().getKey() + new CandyTimeBonus().getKey(), new CandyMove(levelBase));
-	
-		map.put(new HorizontalStripedCandy().getKey() + new Candy().getKey(), new CandyMove(levelBase));
-		map.put(new HorizontalStripedCandy().getKey() + new HorizontalStripedCandy().getKey(), new TwoStripedMove(levelBase));
-		map.put(new HorizontalStripedCandy().getKey() + new VerticalStripedCandy().getKey(), new TwoStripedMove(levelBase));
-		map.put(new HorizontalStripedCandy().getKey() + new WrappedCandy().getKey(), new WrappedStripedMove(levelBase));
-		map.put(new HorizontalStripedCandy().getKey() + new Bomb().getKey(), new BombStrippedMove(levelBase));
-		map.put(new HorizontalStripedCandy().getKey() + new CandyTimeBonus().getKey(), new CandyMove(levelBase));
+		ElementIDMap = new HashMap<>();
+		//Registramos los tipos distintos de caramelos
+		addCandiesToMap(Candy.class, StripedCandy.class, WrappedCandy.class, Bomb.class);
+		//Se añade el CandyTimeBonus aparte con el mismo ID que Candy ya que los movimientos son los mismos
+		ElementIDMap.put(CandyTimeBonus.class, ElementIDMap.get(Candy.class));
 
-		map.put(new VerticalStripedCandy().getKey() + new Candy().getKey(), new CandyMove(levelBase));
-		map.put(new VerticalStripedCandy().getKey() + new HorizontalStripedCandy().getKey(), new TwoStripedMove(levelBase));
-		map.put(new VerticalStripedCandy().getKey() + new VerticalStripedCandy().getKey(), new TwoStripedMove(levelBase));
-		map.put(new VerticalStripedCandy().getKey() + new WrappedCandy().getKey(), new WrappedStripedMove(levelBase));
-		map.put(new VerticalStripedCandy().getKey() + new Bomb().getKey(), new BombStrippedMove(levelBase));
-		map.put(new VerticalStripedCandy().getKey() + new CandyTimeBonus().getKey(), new CandyMove(levelBase));
+		defaultMove = new CandyMove(levelBase);
+		specialMoveFlagMap = new HashMap<>();
+		specialMoveFlagMap.put(getKey(StripedCandy.class, StripedCandy.class), new TwoStripedMove(levelBase));
+		specialMoveFlagMap.put(getKey(StripedCandy.class, WrappedCandy.class), new WrappedStripedMove(levelBase));
+		specialMoveFlagMap.put(getKey(WrappedCandy.class, WrappedCandy.class), new TwoWrappedMove(levelBase));
+		specialMoveFlagMap.put(getKey(Bomb.class, Candy.class), new BombMove(levelBase));
+		specialMoveFlagMap.put(getKey(Bomb.class, StripedCandy.class), new BombStrippedMove(levelBase));
+		specialMoveFlagMap.put(getKey(Bomb.class, WrappedCandy.class), new BombWrappedMove(levelBase));
+		specialMoveFlagMap.put(getKey(Bomb.class, Bomb.class), new TwoBombMove(levelBase));
 
-		map.put(new WrappedCandy().getKey() + new Candy().getKey(), new CandyMove(levelBase));
-		map.put(new WrappedCandy().getKey() + new HorizontalStripedCandy().getKey(), new WrappedStripedMove(levelBase));
-		map.put(new WrappedCandy().getKey() + new VerticalStripedCandy().getKey(), new WrappedStripedMove(levelBase));
-		map.put(new WrappedCandy().getKey() + new WrappedCandy().getKey(), new TwoWrappedMove(levelBase));
-		map.put(new WrappedCandy().getKey() + new Bomb().getKey(), new BombWrappedMove(levelBase));
-		map.put(new WrappedCandy().getKey() + new CandyTimeBonus().getKey(), new CandyMove(levelBase));
-
-		map.put(new Bomb().getKey() + new Candy().getKey(), new BombMove(levelBase));
-		map.put(new Bomb().getKey() + new HorizontalStripedCandy().getKey(), new BombStrippedMove(levelBase));
-		map.put(new Bomb().getKey() + new VerticalStripedCandy().getKey(), new BombStrippedMove(levelBase));
-		map.put(new Bomb().getKey() + new WrappedCandy().getKey(), new BombWrappedMove(levelBase));
-		map.put(new Bomb().getKey() + new Bomb().getKey(), new TwoBombMove(levelBase));
-		map.put(new Bomb().getKey() + new CandyTimeBonus().getKey(), new BombMove(levelBase));
-
-		map.put(new CandyTimeBonus().getKey() + new Candy().getKey(), new CandyMove(levelBase));
-		map.put(new CandyTimeBonus().getKey() + new HorizontalStripedCandy().getKey(), new CandyMove(levelBase));
-		map.put(new CandyTimeBonus().getKey() + new VerticalStripedCandy().getKey(), new CandyMove(levelBase));
-		map.put(new CandyTimeBonus().getKey() + new WrappedCandy().getKey(), new CandyMove(levelBase));
-		map.put(new CandyTimeBonus().getKey() + new Bomb().getKey(), new BombMove(levelBase));
-		map.put(new CandyTimeBonus().getKey() + new CandyTimeBonus().getKey(), new CandyMove(levelBase));
 	}
 	
 	public Move getMove(int y1, int x1, int y2, int x2) {
-		Move move = map.get(levelBase.get(y1, x1).getKey() + levelBase.get(y2, x2).getKey());
+		Element el1 = levelBase.get(y1, x1);
+		Element el2 = levelBase.get(y2, x2);
+		int key = getKey(el1, el2);
+		Move move;
+		if (specialMoveFlagMap.containsKey(key)){
+			move = specialMoveFlagMap.get(key);
+		} else {
+			move = defaultMove;
+		}
 		move.setCoords(y1, x1, y2, x2);
 		return move;
 	}
