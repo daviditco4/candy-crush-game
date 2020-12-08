@@ -20,12 +20,12 @@ public class Level2 extends LevelBase {
 
     @Override
     public String getDisplayMessage() {
-        return "Celdas Restantes: " + getRemainingCells() + " / Movimientos Restantes: " + stepsLeft();
+        return "Celdas Pared: " + getRemainingCells() + "   Puntaje: " + state().getScore() + "   Movimientos: " + stepsLeft() + "/" + MAX_MOVES;
     }
 
     @Override
     public String getVictoryMessage(){
-        return "Enhorabuena! Ganaste en "+ state().getMoves() +" movimientos!";
+        return "Enhorabuena! Ganaste en "+ state().getMoves() +" movimientos con " + state().getScore() + " puntos!";
     }
 
     @Override

@@ -9,12 +9,12 @@ public class Level0 extends LevelBase {
 
 	@Override
 	public String getDisplayMessage() {
-		return "Puntaje: " + state().getScore() + " / Movimientos Restantes: " + stepsLeft();
+		return "Puntaje: " + state().getScore() + "      Movimientos: " + stepsLeft() + "/" + MAX_MOVES;
 	}
 
 	@Override
 	public String getVictoryMessage(){
-		return "Enorabuena! Ganaste en "+ state().getMoves() +" movimientos!";
+		return "Enorabuena! Ganaste en "+ state().getMoves() +" movimientos con " + state().getScore() + " puntos!";
 	}
 
 	@Override
