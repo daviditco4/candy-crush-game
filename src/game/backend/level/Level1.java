@@ -5,14 +5,12 @@ import javafx.scene.paint.Color;
 
 public class Level1 extends LevelBase {
 
-    private int acum;
     private static Color cellColor = Color.YELLOW;
     private static final int MAX_MOVES = 20;
 
     @Override
     public void initialize(){
         super.initialize();
-        acum = 0;
     }
 
     @Override
@@ -42,14 +40,14 @@ public class Level1 extends LevelBase {
                 for(int x=0 ; x < SIZE ; x++){
                     if(getCell(y1, x).getColor() == null){
                         getCell(y1, x).setColor(cellColor);
-                        acum++;
+                        ((Level1State)state()).increaseAcum();
                     }
                 }
             } else {
                 for(int y=0 ; y < SIZE ; y++){
                     if(getCell(y, x1).getColor() == null){
                         getCell(y, x1).setColor(cellColor);
-                        acum++;
+                        ((Level1State)state()).increaseAcum();
                     }
                 }
             }
@@ -60,7 +58,7 @@ public class Level1 extends LevelBase {
     }
 
     public int getRemainingCells(){
-        return LevelBase.SIZE * LevelBase.SIZE - acum;
+        return LevelBase.SIZE * LevelBase.SIZE - ((Level1State)state()).getAcum();
     }
 
     //Retorno la cantidad de pasos que quedan segun el nivel
@@ -69,6 +67,10 @@ public class Level1 extends LevelBase {
     }
 
     private class Level1State extends GameState {
+        private int acum;
+        public Level1State() {
+            this.acum = 0;
+        }
         @Override
         public boolean playerWon() {
             return getRemainingCells() == 0;
@@ -77,6 +79,9 @@ public class Level1 extends LevelBase {
         public boolean playerLost(){
             return getMoves() >= MAX_MOVES;
         }
+
+        public int getAcum() {return acum;}
+        public void increaseAcum() {acum++;}
     }
 
 }

@@ -10,13 +10,11 @@ import java.util.Set;
 public class Level2 extends LevelBase {
 
     private static Color cellColor = Color.SANDYBROWN;
-    private Set<Cell> wallCells;
     private static final int MAX_MOVES = 40;
 
     @Override
     public void initialize(){
         super.initialize();
-        wallCells = new HashSet<>();
         colorCenterCells();
     }
 
@@ -51,21 +49,27 @@ public class Level2 extends LevelBase {
             for(int y = first; y <= last; y++){
                 Cell auxCell = getCell(y, x);
                 auxCell.setColor(cellColor);
-                wallCells.add(auxCell);
+                ((Level2State)state()).addCell(auxCell);
             }
         }
     }
 
     public void clearCell(Cell cell){
         cell.setColor(null);
-        wallCells.remove(cell);
+        ((Level2State)state()).removeCell(cell);
     }
 
     public int getRemainingCells(){
-        return wallCells.size();
+        return ((Level2State)state()).cellCount();
     }
 
     private class Level2State extends GameState {
+        private Set<Cell> wallCells;
+
+        public Level2State() {
+            this.wallCells = new HashSet<>();
+        }
+
         @Override
         public boolean playerWon() {
             return getRemainingCells() == 0;
@@ -74,5 +78,11 @@ public class Level2 extends LevelBase {
         public boolean playerLost(){
             return getMoves() >= MAX_MOVES;
         }
+
+        public void removeCell(Cell cell) {wallCells.remove(cell);}
+
+        public void addCell(Cell cell) {wallCells.add(cell);}
+
+        public int cellCount() { return wallCells.size();}
     }
 }

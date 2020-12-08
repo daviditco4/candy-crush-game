@@ -26,7 +26,7 @@ public class CandyGame implements GameListener {
 	public void setLevel(LevelBase level){
 		this.level = level;
 		initGame();
-		GameApp.frame.addClickListenerToCurrentLevel();
+		GameApp.frame.addGameListenerToCurrentLevel();
 	}
 
 	public void resetLevel(){
@@ -73,10 +73,5 @@ public class CandyGame implements GameListener {
 	@Override
 	public void cellExplosion(Element e) {
 		level.state().addScore(e.getScore());
-	}
-	
-	@Override
-	public void gridUpdated() {
-
 	}
 }

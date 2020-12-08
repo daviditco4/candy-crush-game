@@ -3,9 +3,9 @@ package game.backend;
 import game.backend.element.Element;
 
 public interface GameListener {
+
+	default void gridUpdated(){}
 	
-	void gridUpdated();
-	
-	void cellExplosion(Element e);
+	default void cellExplosion(Element e){}
 	
 }

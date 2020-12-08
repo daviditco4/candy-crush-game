@@ -37,6 +37,8 @@ public class ImageManager {
 		for (CandyColor cc: CandyColor.values()) {
 			images.put(new CandyTimeBonus(cc).getFullKey(),   new Image(IMAGE_PATH + cc.toString().toLowerCase() + "Candy.png"));
 		}
+		images.put("JAIL",   new Image(IMAGE_PATH + "jail.png"));
+		images.put("JELLY",   new Image(IMAGE_PATH + "jelly.png"));
 	}
 
 	public Image getImage(Element e) {

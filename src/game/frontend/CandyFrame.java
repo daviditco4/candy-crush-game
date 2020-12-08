@@ -44,7 +44,7 @@ public class CandyFrame extends VBox {
 		scorePanel = new ScorePanel();
 		getChildren().add(scorePanel);
 		game.initGame();
-		addClickListenerToCurrentLevel();
+		addGameListenerToCurrentLevel();
 
 		addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 			// If game is finished clicking on cells does nothing
@@ -61,6 +61,7 @@ public class CandyFrame extends VBox {
 						lastPoint = null;
 					}
 				}
+				CandyGame.instance.level().wasUpdated();
 			}
 		});
 
@@ -97,7 +98,7 @@ public class CandyFrame extends VBox {
 		scorePanel.updateScore(message);
 	}
 
-	public void addClickListenerToCurrentLevel(){
+	public void addGameListenerToCurrentLevel(){
 		GameListener listener;
 		game.addGameListener(listener = new GameListener() {
 			@Override
@@ -131,11 +132,12 @@ public class CandyFrame extends VBox {
 					}
 					frameTime = frameTime.add(frameGap);
 				}
+					timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> {
+						if (lastPoint != null){
+							boardPanel.setImage((int)lastPoint.getY(), (int)lastPoint.getX(), images.getImage("JELLY"));
+						}
+					}));
 				timeLine.play();
-			}
-			@Override
-			public void cellExplosion(Element e) {
-				//
 			}
 		});
 
