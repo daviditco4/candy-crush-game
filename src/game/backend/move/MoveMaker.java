@@ -8,8 +8,7 @@ import java.util.Map;
 
 public class MoveMaker {
 
-	private Map<String, Move> map;
-	private Map<Class<? extends Element>, Integer> ElementIDMap;
+	private Map<Class<? extends Element>, Integer> elementIDMap;
 	private Map<Integer, Move> specialMoveFlagMap;
 	private static Move defaultMove;
 	private LevelBase levelBase;
@@ -21,8 +20,8 @@ public class MoveMaker {
 
 	//Commutative pairing function found in http://benpaulthurstonblog.blogspot.com/2015/12/possible-commutative-pairing-function.html
 	private int getKey (Class<? extends Element> candy1, Class<? extends Element> candy2){
-		int a = ElementIDMap.get(ElementIDMap.containsKey(candy1)?candy1:candy1.getSuperclass());
-		int b = ElementIDMap.get(ElementIDMap.containsKey(candy2)?candy2:candy2.getSuperclass());
+		int a = elementIDMap.get(elementIDMap.containsKey(candy1)?candy1:candy1.getSuperclass());
+		int b = elementIDMap.get(elementIDMap.containsKey(candy2)?candy2:candy2.getSuperclass());
 		return (int)Math.pow(a, 2) + (int)Math.pow(b, 2) + a*b + a + b;
 	}
 	private int getKey (Element candy1, Element candy2){
@@ -33,16 +32,16 @@ public class MoveMaker {
 	private final void addCandiesToMap(Class<? extends Element> ... elements){
 		int index = 1;
 		for (Class<? extends Element> element : elements){
-			ElementIDMap.put(element, index++);
+			elementIDMap.put(element, index++);
 		}
 	}
 
 	private void initMap(){
-		ElementIDMap = new HashMap<>();
+		elementIDMap = new HashMap<>();
 		//Registramos los tipos distintos de caramelos
 		addCandiesToMap(Candy.class, StripedCandy.class, WrappedCandy.class, Bomb.class);
 		//Se añade el CandyTimeBonus aparte con el mismo ID que Candy ya que los movimientos son los mismos
-		ElementIDMap.put(CandyTimeBonus.class, ElementIDMap.get(Candy.class));
+		elementIDMap.put(CandyTimeBonus.class, elementIDMap.get(Candy.class));
 
 		defaultMove = new CandyMove(levelBase);
 		specialMoveFlagMap = new HashMap<>();
