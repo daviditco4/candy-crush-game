@@ -27,7 +27,7 @@ public class Level4 extends LevelBase {
 
     @Override
     protected GameState newState() {
-        return new Level4State(REQUIRED_SCORE, STARTING_TIME);
+        return new Level4State(STARTING_TIME);
     }
 
     @Override
@@ -50,13 +50,9 @@ public class Level4 extends LevelBase {
     }
 
     private static class Level4State extends GameState {
-
-        private int requiredScore;
         private int passedTime;
-
-        public Level4State(int requiredScore, int startingTime) {
+        public Level4State(int startingTime) {
             setTimer(startingTime);
-            this.requiredScore = requiredScore;
         }
         @Override
         public void updateTimer() {
@@ -68,7 +64,7 @@ public class Level4 extends LevelBase {
         }
         @Override
         public boolean playerWon() {
-            return getScore() >= requiredScore;
+            return getScore() >= REQUIRED_SCORE;
         }
         @Override
         public boolean playerLost(){

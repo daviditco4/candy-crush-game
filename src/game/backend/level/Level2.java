@@ -37,7 +37,7 @@ public class Level2 extends LevelBase {
 
     @Override
     protected GameState newState() {
-        return new Level2State(MAX_MOVES);
+        return new Level2State();
     }
 
     private int stepsLeft(){
@@ -66,18 +66,13 @@ public class Level2 extends LevelBase {
     }
 
     private class Level2State extends GameState {
-        private long maxMoves;
-
-        public Level2State(int maxMoves) {
-            this.maxMoves = maxMoves;
-        }
         @Override
         public boolean playerWon() {
             return getRemainingCells() == 0;
         }
         @Override
         public boolean playerLost(){
-            return getMoves() >= maxMoves;
+            return getMoves() >= MAX_MOVES;
         }
     }
 }

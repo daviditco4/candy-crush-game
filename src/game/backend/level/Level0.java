@@ -29,26 +29,18 @@ public class Level0 extends LevelBase {
 
 	@Override
 	protected GameState newState() {
-		return new Level0State(REQUIRED_SCORE, MAX_MOVES);
+		return new Level0State();
 	}
 	
 	private static class Level0State extends GameState {
-		private long requiredScore;
-		private int maxMoves;
-		
-		public Level0State(long requiredScore, int maxMoves) {
-			this.requiredScore = requiredScore;
-			this.maxMoves = maxMoves;
-		}
-
 		@Override
 		public boolean playerWon() {
-			return getScore() > requiredScore;
+			return getScore() > REQUIRED_SCORE;
 		}
 
 		@Override
 		public boolean playerLost(){
-			return getMoves() >= maxMoves;
+			return getMoves() >= MAX_MOVES;
 		}
 	}
 
