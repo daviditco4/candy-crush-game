@@ -9,11 +9,6 @@ public class Level1 extends LevelBase {
     private static final int MAX_MOVES = 20;
 
     @Override
-    public void initialize(){
-        super.initialize();
-    }
-
-    @Override
     public String getDisplayMessage() {
         return "Celdas Oro: " + getGoldCells() + "/" + LevelBase.SIZE * LevelBase.SIZE + "  Puntaje: " + state().getScore() + "   Movimientos: " + stepsLeft() + "/" + MAX_MOVES;
     }
