@@ -15,7 +15,7 @@ public class CandyGame implements GameListener {
 	}
 	
 	public void initGame() {
-		level.initialize();
+		resetLevel();
 		addGameListener(this);
 	}
 
@@ -25,14 +25,12 @@ public class CandyGame implements GameListener {
 
 	public void setLevel(LevelBase level){
 		this.level = level;
-		resetLevel();
+		initGame();
 		GameApp.frame.addClickListenerToCurrentLevel();
 	}
 
 	public void resetLevel(){
-		initGame();
-		// LLama a la funcion que lo llamó?
-		GameApp.frame.updateScorePanel();
+		level.initialize();
 		level.firstMoveDone = false;
 		level.wasUpdated();
 	}
