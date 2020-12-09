@@ -4,6 +4,7 @@ import game.backend.Figure;
 import game.backend.FigureDetector;
 import game.backend.level.LevelBase;
 
+//El movimiento default para cualquier combinación no especial
 public class CandyMove extends Move {
 
 	private Figure f1;

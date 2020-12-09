@@ -18,16 +18,19 @@ public class MoveMaker {
 		initMap();
 	}
 
-	//Commutative pairing function found in http://benpaulthurstonblog.blogspot.com/2015/12/possible-commutative-pairing-function.html
-	private int getKey (Class<? extends Element> candy1, Class<? extends Element> candy2){
+	//Función par conmutativa encontrada en http://benpaulthurstonblog.blogspot.com/2015/12/possible-commutative-pairing-function.html
+	private int getIndexID(Class<? extends Element> candy1, Class<? extends Element> candy2){
+		//Si la clase no esta en elementIDMap, se busca su superclase (Utilizado para StripedCandy)
+		//Es responsabilidad del programador no usar getIndexID con clases que no esten registradas en addCandiesToMap
 		int a = elementIDMap.get(elementIDMap.containsKey(candy1)?candy1:candy1.getSuperclass());
 		int b = elementIDMap.get(elementIDMap.containsKey(candy2)?candy2:candy2.getSuperclass());
 		return (int)Math.pow(a, 2) + (int)Math.pow(b, 2) + a*b + a + b;
 	}
-	private int getKey (Element candy1, Element candy2){
-		return getKey(candy1.getClass(), candy2.getClass());
+	private int getIndexID(Element candy1, Element candy2){
+		return getIndexID(candy1.getClass(), candy2.getClass());
 	}
 
+	//Se registran en orden las clases de cada caramelos de forma que tengan un ID unico que luego es utilizado para indexar los pares.
 	@SafeVarargs
 	private final void addCandiesToMap(Class<? extends Element> ... elements){
 		int index = 1;
@@ -43,9 +46,11 @@ public class MoveMaker {
 		//Se añade el CandyTimeBonus aparte con el mismo ID que Candy ya que los movimientos son los mismos
 		elementIDMap.put(CandyTimeBonus.class, elementIDMap.get(Candy.class));
 
+		//Este es el movimiento utilizado si una combinación de caramelos no esta en specialMoveFlagMap
 		defaultMove = new CandyMove(levelBase);
 		specialMoveFlagMap = new HashMap<>();
-		specialMoveFlagMap.put(getKey(StripedCandy.class, StripedCandy.class), new Move(levelBase){
+		//Se añaden los movimientos especiales como instancias anonimas con sus combinaciones de caramelos
+		specialMoveFlagMap.put(getIndexID(StripedCandy.class, StripedCandy.class), new Move(levelBase){
 			@Override
 			public void removeElements() {
 				for(int y = 0; y < LevelBase.SIZE; y++) {
@@ -56,7 +61,7 @@ public class MoveMaker {
 				}
 			}
 		});
-		specialMoveFlagMap.put(getKey(StripedCandy.class, WrappedCandy.class), new Move(levelBase){
+		specialMoveFlagMap.put(getIndexID(StripedCandy.class, WrappedCandy.class), new Move(levelBase){
 			@Override
 			public void removeElements() {
 				for(int y = -1; y < 2; y++) {
@@ -75,7 +80,7 @@ public class MoveMaker {
 				}
 			}
 		});
-		specialMoveFlagMap.put(getKey(WrappedCandy.class, WrappedCandy.class), new Move(levelBase){
+		specialMoveFlagMap.put(getIndexID(WrappedCandy.class, WrappedCandy.class), new Move(levelBase){
 			@Override
 			public void removeElements() {
 				int currY, currX;
@@ -126,7 +131,7 @@ public class MoveMaker {
 				}
 			}
 		});
-		specialMoveFlagMap.put(getKey(Bomb.class, Candy.class), new Move(levelBase){
+		specialMoveFlagMap.put(getIndexID(Bomb.class, Candy.class), new Move(levelBase){
 			@Override
 			public void removeElements() {
 				Candy candy = (Candy) (get(x1, y1) instanceof Bomb ? get(x2, y2) : get(x1, y1));
@@ -141,7 +146,7 @@ public class MoveMaker {
 				}
 			}
 		});
-		specialMoveFlagMap.put(getKey(Bomb.class, StripedCandy.class), new Move(levelBase){
+		specialMoveFlagMap.put(getIndexID(Bomb.class, StripedCandy.class), new Move(levelBase){
 			@Override
 			public void removeElements() {
 				Candy candy = (Candy) (get(x1, y1) instanceof Bomb ? get(x2, y2) : get(x1, y1));
@@ -174,7 +179,7 @@ public class MoveMaker {
 				return c;
 			}
 		});
-		specialMoveFlagMap.put(getKey(Bomb.class, WrappedCandy.class), new Move(levelBase){
+		specialMoveFlagMap.put(getIndexID(Bomb.class, WrappedCandy.class), new Move(levelBase){
 			@Override
 			public void removeElements() {
 				Candy candy = (Candy) (get(x1, y1) instanceof Bomb ? get(x2, y2) : get(x1, y1));
@@ -203,7 +208,7 @@ public class MoveMaker {
 				}
 			}
 		});
-		specialMoveFlagMap.put(getKey(Bomb.class, Bomb.class), new Move(levelBase){
+		specialMoveFlagMap.put(getIndexID(Bomb.class, Bomb.class), new Move(levelBase){
 			@Override
 			public void removeElements() {
 				for(int y = 0; y < LevelBase.SIZE; y++) {
@@ -215,11 +220,12 @@ public class MoveMaker {
 		});
 
 	}
-	
+
+	//Se obtiene el Move asociado con el par de elementos en las coordenadas (x1,y1) y (x2,y2)
 	public Move getMove(int x1, int y1, int x2, int y2) {
 		Element el1 = levelBase.get(x1, y1);
 		Element el2 = levelBase.get(x2, y2);
-		int key = getKey(el1, el2);
+		int key = getIndexID(el1, el2);
 		Move move;
 		if (specialMoveFlagMap.containsKey(key)){
 			move = specialMoveFlagMap.get(key);
