@@ -6,17 +6,17 @@ import game.backend.element.Element;
 public abstract class Move {
 	
 	protected LevelBase levelBase;
-	protected int y1, x1, y2, x2;
+	protected int x1, y1, x2, y2;
 	
 	public Move(LevelBase levelBase) {
 		this.levelBase = levelBase;
 	}
 	
-	public void setCoords(int y1, int x1, int y2, int x2){
-		this.y1 = y1;
+	public void setCoords(int x1, int y1, int x2, int y2){
 		this.x1 = x1;
-		this.y2 = y2;
+		this.y1 = y1;
 		this.x2 = x2;
+		this.y2 = y2;
 	}
 	
 	public boolean isValid() {
@@ -30,16 +30,16 @@ public abstract class Move {
 		return true;
 	}
 	
-	protected Element get(int y, int x) {
-		return levelBase.get(y, x);
+	protected Element get(int x, int y) {
+		return levelBase.get(x, y);
 	}
 
-	protected void clearContent(int y, int x) {
-		levelBase.clearContentSpecial(y, x);
+	protected void clearContent(int x, int y) {
+		levelBase.clearContentSpecial(x, y);
 	}
 	
-	protected void setContent(int y, int x, Element e){
-		levelBase.setContent(y, x, e);
+	protected void setContent(int x, int y, Element e){
+		levelBase.setContent(x, y, e);
 	}
 	
 	protected void wasUpdated(){

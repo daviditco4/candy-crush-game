@@ -39,12 +39,12 @@ public class CandyGame implements GameListener {
 		return LevelBase.SIZE;
 	}
 	
-	public boolean tryMove(int y1, int x1, int y2, int x2){
-		return level.tryMove(y1, x1, y2, x2);
+	public boolean tryMove(int x1, int y1, int x2, int y2){
+		return level.tryMove(x1, y1, x2, y2);
 	}
 	
-	public Cell get(int y, int x){
-		return level.getCell(y, x);
+	public Cell get(int x, int y){
+		return level.getCell(x, y);
 	}
 	
 	public void addGameListener(GameListener listener) {

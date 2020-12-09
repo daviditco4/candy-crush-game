@@ -49,10 +49,10 @@ public class MoveMaker {
 			@Override
 			public void removeElements() {
 				for(int y = 0; y < LevelBase.SIZE; y++) {
-					clearContent(y, x2);
+					clearContent(x2, y);
 				}
 				for(int x = 0; x < LevelBase.SIZE; x++) {
-					clearContent(y2, x);
+					clearContent(x, y2);
 				}
 			}
 		});
@@ -62,14 +62,14 @@ public class MoveMaker {
 				for(int y = -1; y < 2; y++) {
 					for(int x = 0; x < LevelBase.SIZE; x++) {
 						if (y2 + y >= 0 && y2 + y < LevelBase.SIZE) {
-							clearContent(y2 + y, x);
+							clearContent(x, y2 + y);
 						}
 					}
 				}
 				for(int x = -1; x < 2; x++) {
 					for(int y = 0; y < LevelBase.SIZE; y++) {
 						if (x2 + x >= 0 && x2 + x < LevelBase.SIZE) {
-							clearContent(y, x2 + x);
+							clearContent(x2 + x, y);
 						}
 					}
 				}
@@ -87,18 +87,18 @@ public class MoveMaker {
 						currY = y2;
 						currX = x2;
 					}
-					if (currX > 0) clearContent(currY,currX-1);
-					if (currX < LevelBase.SIZE - 2) clearContent(currY, currX + 2);
+					if (currX > 0) clearContent(currX-1, currY);
+					if (currX < LevelBase.SIZE - 2) clearContent(currX + 2, currY);
 					for(int n = -1; n < 3; n++) {
 						if (currY > 0) {
 							if (n == -1 && currX <= 0) break;
 							if (n == 2 && currX >= LevelBase.SIZE - 2) break;
-							clearContent(currY - 1, currX + n);
+							clearContent(currX + n, currY - 1);
 						}
 						if (currY < LevelBase.SIZE - 1) {
 							if (n == -1 && currX <= 0) break;
 							if (n == 2 && currX >= LevelBase.SIZE - 2) break;
-							clearContent(currY - 1, currX + n);
+							clearContent(currX + n, currY - 1);
 						}
 					}
 				} else {
@@ -109,18 +109,18 @@ public class MoveMaker {
 						currY = y2;
 						currX = x2;
 					}
-					if (currY > 0) clearContent(currY-1, currX);
-					if (currY < LevelBase.SIZE - 2) clearContent(currY+2,currX);
+					if (currY > 0) clearContent(currX, currY-1);
+					if (currY < LevelBase.SIZE - 2) clearContent(currX, currY+2);
 					for(int n = -1; n < 3; n++) {
 						if (currX > 0) {
 							if (n == -1 && currY <= 0) break;
 							if (n == 2 && currY >= LevelBase.SIZE - 2) break;
-							clearContent(currY + n, currX - 1);
+							clearContent(currX - 1, currY + n);
 						}
 						if (currX < LevelBase.SIZE - 1) {
 							if (n == -1 && currY <= 0) break;
 							if (n == 2 && currY >= LevelBase.SIZE - 2) break;
-							clearContent(currY + n, currX + 1);
+							clearContent(currX + 1, currY + n);
 						}
 					}
 				}
@@ -129,13 +129,13 @@ public class MoveMaker {
 		specialMoveFlagMap.put(getKey(Bomb.class, Candy.class), new Move(levelBase){
 			@Override
 			public void removeElements() {
-				Candy candy = (Candy) (get(y1, x1) instanceof Bomb ? get(y2, x2) : get(y1, x1));
-				clearContent(y1, x1);
-				clearContent(y2, x2);
+				Candy candy = (Candy) (get(x1, y1) instanceof Bomb ? get(x2, y2) : get(x1, y1));
+				clearContent(x1, y1);
+				clearContent(x2, y2);
 				for(int i = 0; i < LevelBase.SIZE; i++) {
 					for(int j = 0; j < LevelBase.SIZE; j++) {
-						if (candy.equals(get(i, j))) {
-							clearContent(i, j);
+						if (candy.equals(get(j, i))) {
+							clearContent(j, i);
 						}
 					}
 				}
@@ -144,20 +144,20 @@ public class MoveMaker {
 		specialMoveFlagMap.put(getKey(Bomb.class, StripedCandy.class), new Move(levelBase){
 			@Override
 			public void removeElements() {
-				Candy candy = (Candy) (get(y1, x1) instanceof Bomb ? get(y2, x2) : get(y1, x1));
+				Candy candy = (Candy) (get(x1, y1) instanceof Bomb ? get(x2, y2) : get(x1, y1));
 				CandyColor color = candy.getColor();
 				for(int i = 0; i < LevelBase.SIZE; i++) {
 					for(int j = 0; j < LevelBase.SIZE; j++) {
-						if (candy.equals(get(i, j))) {
-							setContent(i, j, createStriped(color));
+						if (candy.equals(get(j, i))) {
+							setContent(j, i, createStriped(color));
 						}
 					}
 				}
 				wasUpdated();
 				for(int i = 0; i < LevelBase.SIZE; i++) {
 					for(int j = 0; j < LevelBase.SIZE; j++) {
-						if (candy.equals(get(i, j))) {
-							clearContent(i, j);
+						if (candy.equals(get(j, i))) {
+							clearContent(j, i);
 						}
 					}
 				}
@@ -177,27 +177,27 @@ public class MoveMaker {
 		specialMoveFlagMap.put(getKey(Bomb.class, WrappedCandy.class), new Move(levelBase){
 			@Override
 			public void removeElements() {
-				Candy candy = (Candy) (get(y1, x1) instanceof Bomb ? get(y2, x2) : get(y1, x1));
-				clearContent(y1, x1);
-				clearContent(y2, x2);
+				Candy candy = (Candy) (get(x1, y1) instanceof Bomb ? get(x2, y2) : get(x1, y1));
+				clearContent(x1, y1);
+				clearContent(x2, y2);
 				for(int i = 0; i < LevelBase.SIZE; i++) {
 					for(int j = 0; j < LevelBase.SIZE; j++) {
-						if (candy.equals(get(i, j))) {
-							clearContent(i, j);
+						if (candy.equals(get(j, i))) {
+							clearContent(j, i);
 						}
 					}
 				}
 				for(int i = -1; i < 2; i++) {
 					for(int j = -1; j < 2; j++) {
 						if (y1 + i >= 0 && y1 + i < LevelBase.SIZE && x1 + j >= 0 && x1 + j < LevelBase.SIZE) {
-							clearContent(y1 + i, x1 + j);
+							clearContent(x1 + j, y1 + i);
 						}
 					}
 				}
 				for(int i = -1; i < 2; i++) {
 					for(int j = -1; j < 2; j++) {
 						if (y2 + i >= 0 && y2 + i < LevelBase.SIZE && x2 + j >= 0 && x2 + j < LevelBase.SIZE) {
-							clearContent(y2 + i, x2 + j);
+							clearContent(x2 + j, y2 + i);
 						}
 					}
 				}
@@ -208,7 +208,7 @@ public class MoveMaker {
 			public void removeElements() {
 				for(int y = 0; y < LevelBase.SIZE; y++) {
 					for(int x = 0; x < LevelBase.SIZE; x++) {
-						clearContent(y,x);
+						clearContent(x, y);
 					}
 				}
 			}
@@ -216,9 +216,9 @@ public class MoveMaker {
 
 	}
 	
-	public Move getMove(int y1, int x1, int y2, int x2) {
-		Element el1 = levelBase.get(y1, x1);
-		Element el2 = levelBase.get(y2, x2);
+	public Move getMove(int x1, int y1, int x2, int y2) {
+		Element el1 = levelBase.get(x1, y1);
+		Element el2 = levelBase.get(x2, y2);
 		int key = getKey(el1, el2);
 		Move move;
 		if (specialMoveFlagMap.containsKey(key)){
@@ -226,7 +226,7 @@ public class MoveMaker {
 		} else {
 			move = defaultMove;
 		}
-		move.setCoords(y1, x1, y2, x2);
+		move.setCoords(x1, y1, x2, y2);
 		return move;
 	}
 

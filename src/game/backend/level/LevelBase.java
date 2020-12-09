@@ -84,11 +84,11 @@ public abstract class LevelBase {
 		state = newState();
 	}
 
-	public Element get(int y, int x) {
+	public Element get(int x, int y) {
 		return g[x][y].getContent();
 	}
 	
-	public Cell getCell(int y, int x) {
+	public Cell getCell(int x, int y) {
 		return g[x][y];
 	}
 
@@ -105,22 +105,22 @@ public abstract class LevelBase {
 		}
 	}
 	
-	public void clearContent(int y, int x) {
+	public void clearContent(int x, int y) {
 		g[x][y].clearContent();
 	}
 
-	public void clearContentSpecial(int y, int x) {
-		clearContent(y,x);
+	public void clearContentSpecial(int x, int y) {
+		clearContent(x, y);
 		g[x][y].onSpecialDestroyed();
 	}
 	
-	public void setContent(int y, int x, Element e) {
+	public void setContent(int x, int y, Element e) {
 		g[x][y].setContent(e);
 	}
 	
-	public boolean tryMove(int y1, int x1, int y2, int x2) {
-		Move move = moveMaker.getMove(y1, x1, y2, x2);
-		swapContent(y1, x1, y2, x2);
+	public boolean tryMove(int x1, int y1, int x2, int y2) {
+		Move move = moveMaker.getMove(x1, y1, x2, y2);
+		swapContent(x1, y1, x2, y2);
 		if (move.isValid()) {
 			state().addMove();
 			if (!firstMoveDone) firstMoveDone = true;
@@ -129,7 +129,7 @@ public abstract class LevelBase {
 			wasUpdated();
 			return true;
 		} else {
-			swapContent(y1, x1, y2, x2);
+			swapContent(x1, y1, x2, y2);
 			return false;
 		}
 	}	
@@ -137,28 +137,28 @@ public abstract class LevelBase {
 	public Figure tryRemove(Cell cell) {
 		if (gMap.containsKey(cell)) {
 			Point p = gMap.get(cell);
-			Figure f = figureDetector.checkFigure(p.y, p.x);
+			Figure f = figureDetector.checkFigure(p.x, p.y);
 			if (f != null) {
-				removeFigure(p.y, p.x, f);
+				removeFigure(p.x, p.y, f);
 			}
 			return f;
 		}
 		return null;
 	}
 	
-	private void removeFigure(int y, int x, Figure f) {
-		CandyColor color = ((Candy)get(y, x)).getColor();
+	private void removeFigure(int x, int y, Figure f) {
+		CandyColor color = ((Candy)get(x, y)).getColor();
 		if (f.hasReplacement()) {
-			setContent(y, x, f.generateReplacement(color));
+			setContent(x, y, f.generateReplacement(color));
 		} else {
-			clearContent(y, x);
+			clearContent(x, y);
 		}
 		for (Point p: f.getPoints()) {
-			clearContent(y + p.y, x + p.x);
+			clearContent(x + p.x, y + p.y);
 		}
 	}
 
-	public void swapContent(int y1, int x1, int y2, int x2) {
+	public void swapContent(int x1, int y1, int x2, int y2) {
 		Element e = g[x1][y1].getContent();
 		g[x1][y1].setContent(g[x2][y2].getContent());
 		g[x2][y2].setContent(e);

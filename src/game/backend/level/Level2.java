@@ -47,7 +47,7 @@ public class Level2 extends LevelBase {
         int last = LevelBase.SIZE / 2 + 1;
         for(int x = first; x <= last; x++){
             for(int y = first; y <= last; y++){
-                Cell auxCell = getCell(y, x);
+                Cell auxCell = getCell(x, y);
                 auxCell.setColor(cellColor);
                 ((Level2State)state()).addCell(auxCell);
             }

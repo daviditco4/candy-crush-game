@@ -58,7 +58,7 @@ public class CandyFrame extends VBox {
 					Point2D newPoint = translateCoords(event.getSceneX(), event.getSceneY() - appMenu.getHeight());
 					if (newPoint != null) {
 						System.out.println("Get second = " + newPoint);
-						game().tryMove((int) lastPoint.getY(), (int) lastPoint.getX(), (int) newPoint.getY(), (int) newPoint.getX());
+						game().tryMove((int) lastPoint.getX(), (int) lastPoint.getY(), (int) newPoint.getX(), (int) newPoint.getY());
 						updateScorePanel();
 						lastPoint = null;
 					}
@@ -112,7 +112,7 @@ public class CandyFrame extends VBox {
 					for (int x = game().getSize() - 1; x >= 0; x--) {
 						int finalY = y;
 						int finalX = x;
-						Cell cell = CandyFrame.this.game.get(y, x);
+						Cell cell = CandyFrame.this.game.get(x, y);
 						Element element = cell.getContent();
 						Color cellColor = cell.getColor();
 						Image image = images.getImage(element);
@@ -151,9 +151,9 @@ public class CandyFrame extends VBox {
 	}
 
 	private Point2D translateCoords(double x, double y) {
-		double i = y / CELL_SIZE;
-		double j = x / CELL_SIZE;
-		return (i >= 0 && i < game.getSize() && j >= 0 && j < game.getSize()) ? new Point2D(j, i) : null;
+		double xValue = x / CELL_SIZE;
+		double yValue = y / CELL_SIZE;
+		return (yValue >= 0 && yValue < game.getSize() && xValue >= 0 && xValue < game.getSize()) ? new Point2D(xValue, yValue) : null;
 	}
 
 }

@@ -29,19 +29,19 @@ public class Level1 extends LevelBase {
     }
 
     @Override
-    public boolean tryMove(int y1, int x1, int y2, int x2) {
-        if(super.tryMove(y1, x1, y2, x2)){
+    public boolean tryMove(int x1, int y1, int x2, int y2) {
+        if(super.tryMove(x1, y1, x2, y2)){
             if(y1 == y2){
                 for(int x=0 ; x < SIZE ; x++){
-                    if(getCell(y1, x).getColor() == null){
-                        getCell(y1, x).setColor(cellColor);
+                    if(getCell(x, y1).getColor() == null){
+                        getCell(x, y1).setColor(cellColor);
                         ((Level1State)state()).increaseAcum();
                     }
                 }
             } else {
                 for(int y=0 ; y < SIZE ; y++){
-                    if(getCell(y, x1).getColor() == null){
-                        getCell(y, x1).setColor(cellColor);
+                    if(getCell(x1, y).getColor() == null){
+                        getCell(x1, y).setColor(cellColor);
                         ((Level1State)state()).increaseAcum();
                     }
                 }

@@ -2,22 +2,22 @@ package game.backend;
 
 public enum Checkpoint {
 
-	U(-1,0, 1),
-	UU(-2,0, 2),
-	D(1,0, 4),
-	DD(2,0, 8),
-	R(0,1, 16),
-	RR(0,2, 32),
-	L(0,-1, 64),
-	LL(0,-2, 128);
+	U(0, -1, 1),
+	UU(0, -2, 2),
+	D(0, 1, 4),
+	DD(0, 2, 8),
+	R(1, 0, 16),
+	RR(2, 0, 32),
+	L(-1, 0, 64),
+	LL(-2, 0, 128);
 	
-	private int y;
 	private int x;
+	private int y;
 	private int value;
 	
-	Checkpoint(int y, int x, int value) {
-		this.y = y;
+	Checkpoint(int x, int y, int value) {
 		this.x = x;
+		this.y = y;
 		this.value = value;
 	}
 	
