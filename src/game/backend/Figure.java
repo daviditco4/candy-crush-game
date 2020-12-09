@@ -61,10 +61,6 @@ public enum Figure {
 	public Point[] getPoints() {
 		return points;
 	}
-	
-	public int size() {
-		return points.length;
-	}
 
 	public boolean hasReplacement() {
 		return replacementClass != null;

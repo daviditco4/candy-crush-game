@@ -30,7 +30,7 @@ public class FigureDetector {
 	private int readCheckpoints(int x, int y) {
 		Element curr = levelBase.get(x, y);
 		int acum = 0;
-		for (Checkpoint cp: Checkpoint.values()) {
+		for (NearbyPoints cp: NearbyPoints.values()) {
 			int newY = y + cp.getY();
 			int newX = x + cp.getX();
 			if (newY >= 0 && newY < LevelBase.SIZE && newX >= 0 && newX < LevelBase.SIZE) {
