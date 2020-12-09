@@ -66,7 +66,7 @@ public class AppMenu extends MenuBar {
             super(name);
             setOnAction(event -> requestConfirmationAndThen(
                     "Cambiar de nivel",
-                    "Cambiar al nivel "+name,
+                    "Cambiar al nivel " + name,
                     "¿Está seguro que desea salir? Se perdera el progreso del nivel actual.",
                     then
             ));

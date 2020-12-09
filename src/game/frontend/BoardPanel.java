@@ -18,7 +18,7 @@ public class BoardPanel extends TilePane {
 		setPrefColumns(columns);
 		setPrefTileHeight(cellSize);
 		setPrefTileWidth(cellSize);
-		this.cells = new StackPane[rows][columns];
+		cells = new StackPane[rows][columns];
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
 				cells[i][j] = new StackPane();
@@ -27,9 +27,11 @@ public class BoardPanel extends TilePane {
 		}
 	}
 
-	public void setColor(int row, int column, Color color){
+	public BoardPanel(final int rows, final int cellSize) { this(rows, rows, cellSize); }
+
+	public void setColor(int row, int column, Color color) {
 		Light.Distant spotLight = new Light.Distant();
-		if (color == null){
+		if (color == null) {
 			cells[row][column].setEffect(null);
 			return;
 		}
