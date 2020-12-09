@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 
 public class GameApp extends Application {
 
+	//Inicia la aplicación de JavaFX
 	public static void main(String[] args) {
 		launch(args);
 	}

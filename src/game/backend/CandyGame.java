@@ -26,7 +26,7 @@ public class CandyGame implements GameListener {
 	public void setLevel(LevelBase level){
 		this.level = level;
 		initGame();
-		GameApp.frame.addGameListenerToCurrentLevel();
+		GameApp.frame.addFrameUpdateGameListenerToCurrentLevel();
 	}
 
 	public void resetLevel(){

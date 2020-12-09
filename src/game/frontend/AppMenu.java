@@ -13,6 +13,7 @@ import java.util.Optional;
 public class AppMenu extends MenuBar {
 
     public AppMenu() {
+        //Se añade al menu el botón Archivo con la opción de sair
         Menu file = new Menu("Archivo");
         MenuItem exitMenuItem = new MenuItem("Salir");
         exitMenuItem.setOnAction(event -> {
@@ -25,6 +26,7 @@ public class AppMenu extends MenuBar {
         });
         file.getItems().add(exitMenuItem);
 
+        //Se añade al menu el botón Ayuda con información sobre los autores del programa
         Menu help = new Menu("Ayuda");
         MenuItem aboutMenuItem = new MenuItem("Acerca De");
         aboutMenuItem.setOnAction(event -> {
@@ -32,11 +34,12 @@ public class AppMenu extends MenuBar {
             alert.setTitle("Acerca De");
             alert.setHeaderText("Candy TPE");
             alert.setContentText("Cátedra POO 2018.\n" +
-                    "Implementación Original: Laura Zabaleta (POO 2013).");
+                    "Implementación Original: Laura Zabaleta (POO 2013).\n\nModificación Para Examen Final 2020 2Q:\nNicolás Brisa\nValentín Ye Li\nMassimo Cantú\nDavid Itcovici");
             alert.showAndWait();
         });
         help.getItems().add(aboutMenuItem);
 
+        //Se añade al menu el botón Niveles que permite seleccionar el modo de juego entre 4 opciones.
         Menu levels = new Menu("Niveles");
         MenuItem level0 = new LevelSelectMenuItem("Estándar", () -> CandyGame.instance.setLevel(new Level0()));
         MenuItem level1 = new LevelSelectMenuItem("Golden Board", () -> CandyGame.instance.setLevel(new Level1()));
@@ -49,6 +52,7 @@ public class AppMenu extends MenuBar {
         getMenus().addAll(file, levels, help);
     }
 
+    //Este metodo abre un pop-up con botones de selección "OK" y "CANCEL"
     static void requestConfirmationAndThen(String title, String headerText, String contentText, Runnable then) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
@@ -60,6 +64,7 @@ public class AppMenu extends MenuBar {
         }
     }
 
+    //Esta clase permite crear las opciones para seleccionar nivel de forma más organizada
     public static class LevelSelectMenuItem extends MenuItem{
 
         public LevelSelectMenuItem(String name, Runnable then) {

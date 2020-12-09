@@ -11,6 +11,7 @@ public class ImageManager {
 	private static final String IMAGE_PATH = "images/";
 	private Map<String, Image> images;
 
+	//Se cachean las imagenes guardadas en la carpeta imagenes
 	public ImageManager() {
 		WrappedCandy wc = new WrappedCandy();
 		VerticalStripedCandy vc = new VerticalStripedCandy();
@@ -41,9 +42,11 @@ public class ImageManager {
 		images.put("JELLY",   new Image(IMAGE_PATH + "jelly.png"));
 	}
 
+	//Permite obtener una imagen asociada a un elemento
 	public Image getImage(Element e) {
 		return images.get(e.getKey());
 	}
+	//Permite acceder a una imagen directamente
 	public Image getImage(String s) {
 		return images.get(s);
 	}

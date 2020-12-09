@@ -14,6 +14,7 @@ public class BoardPanel extends TilePane {
 	private StackPane[][] cells;
 
 	public BoardPanel(final int rows, final int columns, final int cellSize) {
+		//Configuración estandar para el panel con los caramelos
 		setPrefRows(rows);
 		setPrefColumns(columns);
 		setPrefTileHeight(cellSize);
@@ -29,6 +30,7 @@ public class BoardPanel extends TilePane {
 
 	public BoardPanel(final int rows, final int cellSize) { this(rows, rows, cellSize); }
 
+	//Cambia el color de una celda en la tabla. Utilizado en niveles GoldenBoard y WallBlast
 	public void setColor(int row, int column, Color color) {
 		Light.Distant spotLight = new Light.Distant();
 		if (color == null) {
@@ -41,10 +43,12 @@ public class BoardPanel extends TilePane {
 		cells[row][column].setEffect(lighting);
 	}
 
+	//Coloca una imagen en la tabla añadiendo el nodo ImageView
 	public void setImage(int row, int column, Image image) {
-		cells[row][column].getChildren().add(new ImageView(image));
+		addNode(row, column, new ImageView(image));
 	}
 
+	//Añade un nodo cualquiera en la tabla, Utilizado para añadir los numeros a los Time Bonus Candy
 	public void addNode(int row, int column, Node node){
 		cells[row][column].getChildren().add(node);
 	}

@@ -46,18 +46,20 @@ public class CandyFrame extends VBox {
 		scorePanel = new ScorePanel();
 		getChildren().add(scorePanel);
 		game.initGame();
-		addGameListenerToCurrentLevel();
+		addFrameUpdateGameListenerToCurrentLevel();
 
+		//Event handler para detectar clicks del mouse
 		addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			// If game is finished clicking on cells does nothing
+			//Si el juego no esta en curso, el click no hace nada
 			if(!game.isGameFinished()) {
+				//Cuando lastPoint es nulo, el click marca la primera selección
 				if (lastPoint == null) {
 					lastPoint = translateCoords(event.getSceneX(), event.getSceneY() - appMenu.getHeight());
-					System.out.println("Get first = " + lastPoint);
 				} else {
+					//Si lastPoint no es nulo, el click es la segunda selección
 					Point2D newPoint = translateCoords(event.getSceneX(), event.getSceneY() - appMenu.getHeight());
 					if (newPoint != null) {
-						System.out.println("Get second = " + newPoint);
+						//Al realizar la segunda selección, se ejecuta un movimiento, luego se actualiza el panel de puntajes, y se resetea la primera selección
 						game.tryMove((int) lastPoint.getX(), (int) lastPoint.getY(), (int) newPoint.getX(), (int) newPoint.getY());
 						updateScorePanel();
 						lastPoint = null;
@@ -67,6 +69,7 @@ public class CandyFrame extends VBox {
 			}
 		});
 
+		//Este timer se ejecuta cada 1 segundo. Se utiliza para el nivel TimeLimit
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
@@ -84,6 +87,7 @@ public class CandyFrame extends VBox {
 
 	boolean alertPoppedUp = false;
 	public void updateScorePanel(){
+		//Al actualizar el panel de puntajes, se chequea si el juego termino y si es asi se abre la ventana que pregunta si se desea jugar de nuevo
 		if (game.isGameFinished() && !alertPoppedUp) {
 			alertPoppedUp = true;
 			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -100,7 +104,9 @@ public class CandyFrame extends VBox {
 		scorePanel.updateScore(message);
 	}
 
-	public void addGameListenerToCurrentLevel(){
+	//Este metodo añade un GameListener al nivel actualmente cargado.
+	//Dicho GameListener actualiza graficamente la tabla
+	public void addFrameUpdateGameListenerToCurrentLevel(){
 		GameListener listener;
 		game.addGameListener(listener = new GameListener() {
 			@Override
@@ -112,13 +118,14 @@ public class CandyFrame extends VBox {
 					for (int x = game.getSize() - 1; x >= 0; x--) {
 						int finalY = y;
 						int finalX = x;
-						Cell cell = CandyFrame.this.game.get(x, y);
+						Cell cell = game.get(x, y);
 						Element element = cell.getContent();
 						Color cellColor = cell.getColor();
 						Image image = images.getImage(element);
 						timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setColor(finalY, finalX, cellColor)));
 						timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setImage(finalY, finalX, null)));
 						timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setImage(finalY, finalX, image)));
+						//Si el caramelo es de tipo CandyTimeBonus, se le añade un display grafico adicional con el numero del tiempo extra que otorga.
 						if (element instanceof CandyTimeBonus){
 							DropShadow dropShadow = new DropShadow();
 							dropShadow.setRadius(3.0);
@@ -134,6 +141,7 @@ public class CandyFrame extends VBox {
 					}
 					frameTime = frameTime.add(frameGap);
 				}
+				//Se añade un marco en el caramelo seleccionado por el primer click
 					timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> {
 						if (lastPoint != null){
 							boardPanel.setImage((int)lastPoint.getY(), (int)lastPoint.getX(), images.getImage("JELLY"));
@@ -146,6 +154,7 @@ public class CandyFrame extends VBox {
 		listener.gridUpdated();
 	}
 
+	//Se pasan las coordenadas de pixel-space a grid-space
 	private Point2D translateCoords(double x, double y) {
 		double xValue = x / CELL_SIZE;
 		double yValue = y / CELL_SIZE;
