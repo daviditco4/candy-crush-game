@@ -50,6 +50,8 @@ public class Level4 extends LevelBase {
     }
 
     private static class Level4State extends GameState {
+        // Se usa un passedTime aparte del timer propio de GameState para facilitar
+        // el poder informar del tiempo pasado desde que se inició el nivel
         private int passedTime;
         public Level4State(int startingTime) {
             setTimer(startingTime);

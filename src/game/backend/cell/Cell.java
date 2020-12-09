@@ -13,7 +13,7 @@ public class Cell {
 	private LevelBase levelBase;
 	private Cell[] around = new Cell[Direction.values().length];
 	private Element content;
-	// Cell color
+	// Color del cell (usado como color de fondo del candy)
 	private Color color;
 	
 	public Cell(LevelBase levelBase) {

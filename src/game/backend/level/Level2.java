@@ -42,7 +42,10 @@ public class Level2 extends LevelBase {
         return MAX_MOVES - state().getMoves();
     }
 
+    // Se pintan las 9 celdas centrales de color cellColor (En este caso, Color.SANDYBROWN)
     private void colorCenterCells(){
+        // Como SIZE es entero, se aprovecha el resultado de la division entera para que
+        // first = last - 3, y que la pared sea de 3x3 por cómo se recorren los nested for's
         int first = LevelBase.SIZE / 2 - 1;
         int last = LevelBase.SIZE / 2 + 1;
         for(int x = first; x <= last; x++){
@@ -64,6 +67,10 @@ public class Level2 extends LevelBase {
     }
 
     private class Level2State extends GameState {
+        // Se usa un set de cells para que cada una de las 9 celdas
+        // sean distintas por defecto por ser distintas instancias.
+        // Además facilita obtener el tamaño restante de la pared, pues
+        // solo se usa wallCells.size()
         private Set<Cell> wallCells;
 
         public Level2State() {

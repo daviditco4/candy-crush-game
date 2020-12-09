@@ -33,6 +33,8 @@ public class Level1 extends LevelBase {
         if(super.tryMove(x1, y1, x2, y2)){
             if(y1 == y2){
                 for(int x=0 ; x < SIZE ; x++){
+                    // Sólo se tiene en cuenta la primera vez que se "pinta" una cell
+                    // de oro para que el valor de acum sea el correcto
                     if(getCell(x, y1).getColor() == null){
                         getCell(x, y1).setColor(cellColor);
                         ((Level1State)state()).increaseAcum();
@@ -46,6 +48,8 @@ public class Level1 extends LevelBase {
                     }
                 }
             }
+            // Se actualiza nuevamente el tablero para mostrar las nuevas celdas doradas,
+            // si es que las hay
             wasUpdated();
             return true;
         }

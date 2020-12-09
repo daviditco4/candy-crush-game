@@ -36,29 +36,29 @@ public abstract class LevelBase {
 		wallCell.setContent(new Wall());
 		Cell candyGenCell = new CandyGeneratorCell(this);
 
-		//corners
+		// Esquinas
 		g[0][0].setAround(candyGenCell, g[0][1], wallCell, g[1][0]);
 		g[SIZE-1][0].setAround(candyGenCell, g[SIZE-1][1], g[SIZE-2][0], wallCell);
 		g[0][SIZE-1].setAround(g[0][SIZE-2], wallCell, wallCell, g[1][SIZE-1]);
 		g[SIZE-1][SIZE-1].setAround(g[SIZE-1][SIZE-2], wallCell, g[SIZE-2][SIZE-1], wallCell);
 
-		//upper line cells
+		// Las cells de la primera fila
 		for (int x = 1; x < SIZE-1; x++) {
 			g[x][0].setAround(candyGenCell,g[x][1],g[x-1][0],g[x+1][0]);
 		}
-		//bottom line cells
+		// Las cells de la última filaa
 		for (int x = 1; x < SIZE-1; x++) {
 			g[x][SIZE-1].setAround(g[x][SIZE-2], wallCell, g[x-1][SIZE-1],g[x+1][SIZE-1]);
 		}
-		//left line cells
+		// Las cells de la primera columna
 		for (int y = 1; y < SIZE-1; y++) {
 			g[0][y].setAround(g[0][y-1],g[0][y+1], wallCell,g[1][y]);
 		}
-		//right line cells
+		// Las cells de la última columna
 		for (int y = 1; y < SIZE-1; y++) {
 			g[SIZE-1][y].setAround(g[SIZE-1][y-1],g[SIZE-1][y+1], g[SIZE-2][y], wallCell);
 		}
-		//central cells
+		// El resto de cells (las "centrales")
 		for (int x = 1; x < SIZE-1; x++) {
 			for (int y = 1; y < SIZE-1; y++) {
 				g[x][y].setAround(g[x][y-1],g[x][y+1],g[x-1][y],g[x+1][y]);
@@ -81,6 +81,8 @@ public abstract class LevelBase {
 		}
 		fillCells();
 		fallElements();
+		// Como en fallElements() se puede "sumar puntaje" hasta que se acomoden todos los caramelos,
+		// se resetea el estado luego de dicho método
 		state = newState();
 	}
 
@@ -122,13 +124,16 @@ public abstract class LevelBase {
 		Move move = moveMaker.getMove(x1, y1, x2, y2);
 		swapContent(x1, y1, x2, y2);
 		if (move.isValid()) {
+			// Si el movimiento es válido inmediatamente se agrega a la lista de movimientos realizados
 			state().addMove();
 			if (!firstMoveDone) firstMoveDone = true;
 			move.removeElements();
 			fallElements();
+			// Una vez acomodados todos los elementos en el back se actualiza el front
 			wasUpdated();
 			return true;
 		} else {
+			// Si el movimiento no es válido se colocan los caramelos nuevamente en su posición original
 			swapContent(x1, y1, x2, y2);
 			return false;
 		}
@@ -162,7 +167,6 @@ public abstract class LevelBase {
 		Element e = g[x1][y1].getContent();
 		g[x1][y1].setContent(g[x2][y2].getContent());
 		g[x2][y2].setContent(e);
-		wasUpdated();
 	}
 	
 	public void addListener(GameListener listener) {
@@ -187,6 +191,7 @@ public abstract class LevelBase {
 		return new Candy(color);
 	}
 
+	// Métodos propios de cada Level con sus mensajes finales según se haya ganado o perdido
 	public abstract String getVictoryMessage();
 	public abstract String getLosingMessage();
 
