@@ -20,6 +20,7 @@ public class GameApp extends Application {
 		primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		primaryStage.setTitle("Caramel Crunch");
 	}
 
 }
