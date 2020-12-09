@@ -5,6 +5,7 @@ import game.backend.move.Direction;
 public class StripedCandy extends Candy {
 
     private Orientation orientation;
+    //Enum para los distintos tipos de StripedCandy
     public enum Orientation {
         HORIZONTAL("HORIZ", Direction.LEFT, Direction.RIGHT),
         VERTICAL("VERT", Direction.DOWN, Direction.UP);

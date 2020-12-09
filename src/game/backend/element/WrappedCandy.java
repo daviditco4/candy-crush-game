@@ -2,7 +2,6 @@ package game.backend.element;
 
 import game.backend.move.Direction;
 
-import java.util.Arrays;
 
 public class WrappedCandy extends Candy {
 	
