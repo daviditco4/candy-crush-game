@@ -50,7 +50,7 @@ public class CandyFrame extends VBox {
 
 		addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 			// If game is finished clicking on cells does nothing
-			if(!game().isGameFinished()) {
+			if(!game.isGameFinished()) {
 				if (lastPoint == null) {
 					lastPoint = translateCoords(event.getSceneX(), event.getSceneY() - appMenu.getHeight());
 					System.out.println("Get first = " + lastPoint);
@@ -58,12 +58,12 @@ public class CandyFrame extends VBox {
 					Point2D newPoint = translateCoords(event.getSceneX(), event.getSceneY() - appMenu.getHeight());
 					if (newPoint != null) {
 						System.out.println("Get second = " + newPoint);
-						game().tryMove((int) lastPoint.getX(), (int) lastPoint.getY(), (int) newPoint.getX(), (int) newPoint.getY());
+						game.tryMove((int) lastPoint.getX(), (int) lastPoint.getY(), (int) newPoint.getX(), (int) newPoint.getY());
 						updateScorePanel();
 						lastPoint = null;
 					}
 				}
-				CandyGame.instance.level().wasUpdated();
+				game.level().wasUpdated();
 			}
 		});
 
@@ -92,7 +92,7 @@ public class CandyFrame extends VBox {
 			alert.setContentText(game.getFinalMessageBody());
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.isPresent() && result.get() == ButtonType.OK) {
-				CandyGame.instance.resetLevel();
+				game.resetLevel();
 				alertPoppedUp = false;
 			}
 		}
@@ -108,8 +108,8 @@ public class CandyFrame extends VBox {
 				Timeline timeLine = new Timeline();
 				Duration frameGap = Duration.millis(17);
 				Duration frameTime = Duration.ZERO;
-				for (int y = game().getSize() - 1; y >= 0; y--) {
-					for (int x = game().getSize() - 1; x >= 0; x--) {
+				for (int y = game.getSize() - 1; y >= 0; y--) {
+					for (int x = game.getSize() - 1; x >= 0; x--) {
 						int finalY = y;
 						int finalX = x;
 						Cell cell = CandyFrame.this.game.get(x, y);
@@ -144,10 +144,6 @@ public class CandyFrame extends VBox {
 		});
 
 		listener.gridUpdated();
-	}
-
-	private CandyGame game() {
-		return game;
 	}
 
 	private Point2D translateCoords(double x, double y) {
