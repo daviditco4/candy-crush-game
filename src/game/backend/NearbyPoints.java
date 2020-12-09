@@ -1,6 +1,6 @@
 package game.backend;
 
-public enum Checkpoint {
+public enum NearbyPoints {
 
 	U(0, -1, 1),
 	UU(0, -2, 2),
@@ -15,7 +15,7 @@ public enum Checkpoint {
 	private int y;
 	private int value;
 	
-	Checkpoint(int x, int y, int value) {
+	NearbyPoints(int x, int y, int value) {
 		this.x = x;
 		this.y = y;
 		this.value = value;
